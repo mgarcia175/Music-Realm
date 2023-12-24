@@ -1,4 +1,19 @@
+import sqlite3
+
+CONN = sqlite3.connect('music_libr.db')
+CURSOR = CONN.cursor()
+
+CURSOR.execute("""
+    CREATE TABLE IF NOT EXISTS artists (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        artist_id TEXT
+    )
+""")
+
 class Artist:
+
+
     #List of songs to refer to when needing to manipulate song instances
     all_artists = []
 
