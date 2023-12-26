@@ -1,5 +1,5 @@
-from lib import CURSOR, CONN
-from lib.helpers import find_artist_by_id
+from . import CURSOR, CONN
+from helpers import find_artist_by_id
 
 class Song:
     all_songs = []

@@ -1,6 +1,5 @@
 # lib/helpers.py
 from models.artist import Artist
-from models.song import Song
 from models.favorites import Favorited_Song
 
 def exit_program():
@@ -159,6 +158,7 @@ def add_song_to_favorites():
         print(f"Hmmm.. It looks like there is no song with the ID of {needed_song_id}")
 #This method will find the song with the inputted song ID
 def find_song_by_id(song_id):
+    from models.song import Song
     for song in Song.all_songs:
         if song.song_id == song_id:
             return song
