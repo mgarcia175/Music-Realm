@@ -1,4 +1,5 @@
 from lib import CURSOR, CONN
+from lib.helpers import find_artist_by_id
 
 class Song:
     all_songs = []
@@ -21,7 +22,7 @@ class Song:
         CONN.commit()
 
     @classmethod
-    def load_songs(cls):
+    def load_all_songs(cls):
         CURSOR.execute("SELECT * FROM songs")
         rows = CURSOR.fetchall()
 
