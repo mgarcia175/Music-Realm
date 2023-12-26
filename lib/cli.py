@@ -21,40 +21,44 @@ from helpers import (
 def main():
     while True:
         menu()
-        choice = input("> ")
-        if choice == "0":
-            exit_program()
+        try:
+            choice = input("> ")
+            if choice == "0":
+                exit_program()
 
-        elif choice == "1":
-            add_artist()
-        elif choice == "2":
-            find_artist_by_id()
-        elif choice == "3":
-            remove_artist()
-        elif choice == "4":
-            list_all_artists()
-        elif choice == "5":
-            add_song()
-        elif choice == "6":
-            find_song_by_id()
-        elif choice == "7":
-            remove_song()
-        elif choice == "8":
-            list_all_songs()
-        elif choice == "9":
-            add_song_to_favorites()
-        elif choice == "10":
-            remove_favorited_song()
-        elif choice == "11":
-            list_favorited_songs()
+            elif choice == "1":
+                add_artist()
+            elif choice == "2":
+                find_artist_by_id()
+            elif choice == "3":
+                remove_artist()
+            elif choice == "4":
+                list_all_artists()
+            elif choice == "5":
+                add_song()
+            elif choice == "6":
+                find_song_by_id()
+            elif choice == "7":
+                remove_song()
+            elif choice == "8":
+                list_all_songs()
+            elif choice == "9":
+                add_song_to_favorites()
+            elif choice == "10":
+                remove_favorited_song()
+            elif choice == "11":
+                list_favorited_songs()
 
-        else:
-            print("Invalid choice")
+            else:
+                print("Invalid choice. Please enter a number between 0 and 11.")
+        except ValueError:
+            print("Invalid input. Please enter a number between 0 and 11.")
+
 
 
 def menu():
     print("Please select an option:")
-    print("0. Exit the program")
+    print("0. Exit")
     print("1. Add an Artist")
     print("2. Find an Artist by ID")
     print("3. Remove an Artist")
