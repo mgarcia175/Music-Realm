@@ -1,8 +1,10 @@
-# lib/cli.py
+import sys
+sys.path.append('.')
+
 from models.artist import Artist
 from models.song import Song
 
-from helpers import (
+from lib.helpers import (
     exit_program,
     add_artist,
     remove_artist,

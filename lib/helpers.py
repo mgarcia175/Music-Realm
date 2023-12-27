@@ -1,10 +1,20 @@
 # lib/helpers.py
-from models.artist import Artist
-from models.favorites import Favorited_Song
+import sqlite3
+# from . import CURSOR, CONN
+# from .helpers import execute_query
+from .models.artist import Artist
+from .models.favorites import Favorited_Song
+
+def execute_query(query):
+    CURSOR.execute(query)
+    CONN.commit()
 
 def exit_program():
     print("Exiting menu.. Goodbye!")
     exit()
+
+
+
 
 #functions for artist class
 def add_artist():
@@ -13,11 +23,24 @@ def add_artist():
     artist_name = input("Artist Name: ")
     artist_id = input("Artist ID: ")
 
-    new_artist = Artist(name=artist_name, artist_id=artist_id)
+    query = f"INSERT INTO artists (name, artist_id) VALUES ('{artist_name}', '{artist_id}')"
+    execute_query(query)
+
+    newly_added_artist = find_artist_by_id(artist_id)
 
     print("Nice! Successfully added: ")
-    if new_artist:
-        print(f"{new_artist}")
+    if newly_added_artist:
+        print(f"{newly_added_artist}")
+
+
+
+
+
+
+
+
+
+
 
 def find_artist_by_id():
     print("Finding artist by ID")
