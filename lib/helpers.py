@@ -1,19 +1,19 @@
 # lib/helpers.py
 import sqlite3
-# from . import CURSOR, CONN
-# from .helpers import execute_query
+from .models import CURSOR, CONN
 from .models.artist import Artist
 from .models.favorites import Favorited_Song
 
-def execute_query(query):
+def execute_query(query, return_id=False):
     CURSOR.execute(query)
     CONN.commit()
+
+    if return_id:
+        return CURSOR.lastrowid
 
 def exit_program():
     print("Exiting menu.. Goodbye!")
     exit()
-
-
 
 
 #functions for artist class
@@ -21,14 +21,13 @@ def add_artist():
     print("Adding artist")
 
     artist_name = input("Artist Name: ")
-    artist_id = input("Artist ID: ")
 
-    query = f"INSERT INTO artists (name, artist_id) VALUES ('{artist_name}', '{artist_id}')"
-    execute_query(query)
+    query = f"INSERT INTO artists (name) VALUES ('{artist_name}')"
+    new_artist_id = execute_query(query, return_id=True)
 
-    newly_added_artist = find_artist_by_id(artist_id)
+    newly_added_artist = find_artist_by_id(new_artist_id)
 
-    print("Nice! Successfully added: ")
+    print("Nice! Artist successfully added: ")
     if newly_added_artist:
         print(f"{newly_added_artist}")
 
@@ -41,22 +40,20 @@ def add_artist():
 
 
 
+def find_artist_by_id(artist_id):
+    query = f"SELECT * FROM artists WHERE id = {artist_id}"
+    CURSOR.execute(query)
+    result = CURSOR.fetchone()
 
-def find_artist_by_id():
-    print("Finding artist by ID")
-
-    needed_artist_id = input("Enter the artist's ID: ")
-
-    searched_artist = None
-
-    for artist in Artist.all_artists:
-        if artist.artist_id == needed_artist_id:
-            searched_artist = artist
-            break
-    if searched_artist:
-        print(f"Artist found! --> {searched_artist}")
+    if result:
+        return Artist(name=result[1], artist_id=result[2])
     else:
-        print(f"Oh no! No artist found with the ID of {needed_artist_id}.")
+        return None
+
+
+
+
+
 
 def remove_artist():
     print("Removing artist...")
