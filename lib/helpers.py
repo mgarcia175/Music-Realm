@@ -4,8 +4,12 @@ from .models import CURSOR, CONN
 from .models.artist import Artist
 from .models.favorites import Favorited_Song
 
-def execute_query(query):
-    CURSOR.execute(query)
+def execute_query(query, params=None):
+    if params is not None:
+        CURSOR.execute(query, params)
+    else:
+        CURSOR.execute(query)
+
     CONN.commit()
 
 
@@ -20,12 +24,11 @@ def add_artist():
 
     artist_name = input("Artist Name: ")
 
-    query = f"INSERT INTO artists (name) VALUES (?)"
-    new_artist_id = execute_query(query, params=(artist_name,), return_id=True)[0]
+    query = "INSERT INTO artists (name) VALUES (?)"
+    print(f"Params: {artist_name}")
+    new_artist_id = execute_query(query, params=(artist_name,))
 
-    execute_query(query)
-
-    print(f"Nice! '{artist_name}') has been successfully added!")
+    print(f"Nice! '{artist_name}') has been successfully added! (ID: {new_artist_id})")
 
 
 
