@@ -4,12 +4,10 @@ from .models import CURSOR, CONN
 from .models.artist import Artist
 from .models.favorites import Favorited_Song
 
-def execute_query(query, return_id=False):
+def execute_query(query):
     CURSOR.execute(query)
     CONN.commit()
 
-    if return_id:
-        return CURSOR.lastrowid
 
 def exit_program():
     print("Exiting menu.. Goodbye!")
@@ -22,18 +20,12 @@ def add_artist():
 
     artist_name = input("Artist Name: ")
 
-    query = f"INSERT INTO artists (name) VALUES ('{artist_name}')"
-    new_artist_id = execute_query(query, return_id=True)
+    query = f"INSERT INTO artists (name) VALUES (?)"
+    new_artist_id = execute_query(query, params=(artist_name,), return_id=True)[0]
 
-    newly_added_artist = find_artist_by_id(new_artist_id)
+    execute_query(query)
 
-    print("Nice! Artist successfully added: ")
-    if newly_added_artist:
-        print(f"{newly_added_artist}")
-
-
-
-
+    print(f"Nice! '{artist_name}') has been successfully added!")
 
 
 
@@ -46,7 +38,7 @@ def find_artist_by_id(artist_id):
     result = CURSOR.fetchone()
 
     if result:
-        return Artist(name=result[1], artist_id=result[2])
+        return Artist(name=result[1], artist_id=result[0])
     else:
         return None
 
