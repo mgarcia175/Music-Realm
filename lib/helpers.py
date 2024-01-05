@@ -3,15 +3,18 @@ import sqlite3
 from .models import CURSOR, CONN
 from .models.artist import Artist
 from .models.favorites import Favorited_Song
+from models.song import Song
 
-def execute_query(query, params=None):
+def execute_query(query, params=None, return_id=False):
     if params is not None:
         CURSOR.execute(query, params)
     else:
         CURSOR.execute(query)
 
+    if return_id:
+        return CURSOR.lastrowid
+    
     CONN.commit()
-
 
 def exit_program():
     print("Exiting menu.. Goodbye!")
@@ -25,10 +28,11 @@ def add_artist():
     artist_name = input("Artist Name: ")
 
     query = "INSERT INTO artists (name) VALUES (?)"
-    print(f"Params: {artist_name}")
-    new_artist_id = execute_query(query, params=(artist_name,))
+    new_artist_id = execute_query(query, params=(artist_name,), return_id=True)
 
-    print(f"Nice! '{artist_name}') has been successfully added! (ID: {new_artist_id})")
+    new_artist = Artist(name=artist_name, artist_id=new_artist_id)
+
+    print(f"Nice! 🎤'{artist_name}'🎤) has been successfully added!")
 
 
 
@@ -68,6 +72,18 @@ def remove_artist():
     else:
         print("Uh oh. It seems there is no artist by that ID.")
 
+
+
+
+
+
+
+
+
+
+
+
+
 def list_all_artists():
     print("Listing all artists: ")
 
@@ -83,24 +99,39 @@ def list_all_artists():
         print("Oh no! There are currently no existing artists.. :(")
 #functions for artist class
 
+
+
+
+
+
 #functions for song class
 def add_song():
     print("Adding song! Please provide the requred information..")
 
     song_title = input('Song Title: ')
-    song_id = input("Song ID: ")
-    songs_artist_id = input("Artist ID for song assignment: ")
 
-    artist = find_artist_helper(songs_artist_id)
+    print('🎤🎹🎸Available Artists🎤🎹🎸')
+    list_all_artists()
+
+    songs_artist_id = input('Enter the ID of the artist to assign your song!(`NA` if not assigning): ')
+
+    #In case NA is entered
+    artist = find_artist_helper(songs_artist_id) if songs_artist_id.lower() != 'na' else None
+
+    #If the artist was found with the provided ID, create a new instance of a Song
+    newly_added_song = Song(song_id=song_title.lower().replace(" ", "_"), title=song_title, artist=artist)
 
     if artist:
-        #If the artist was found with the provided ID, create a new instance of a Song
-        newly_added_song = Song(song_id=song_id, title=song_title, artist=artist)
+
         #Add the song to the matching artist
         artist.add_song(newly_added_song)
-        print(f"Song added: {newly_added_song}")
-    else:
-        print(f"Uh oh! No artist found with the provided ID of {songs_artist_id}")
+        print(f"Nicely done! Song added: 🎶{newly_added_song}🎶")
+
+
+
+
+
+
 
 #This method will find the artist with the specific ID
 def find_artist_helper(needed_artist_id):

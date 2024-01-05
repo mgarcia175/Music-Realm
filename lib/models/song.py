@@ -1,5 +1,4 @@
 from lib.models.__init__ import CURSOR, CONN
-from lib.helpers import find_artist_by_id
 
 class Song:
     all_songs = []
@@ -11,13 +10,13 @@ class Song:
         Song.all_songs.append(self)
 
     def __str__(self):
-        return f"{self.title} by {self.artist.name}"
+        return f"{self.title}"
     
-    def save_to_db(self):
+    def save_to_db(self, artist_id):
         CURSOR.execute("""
             INSERT INTO songs (song_id, title, artist_id)
             VALUES (?, ?, ?)
-        """, (self.song_id, self.title, self.artist.artist_id))
+        """, (self.song_id, self.title, artist_id))
         #settings values to the desired then making sure to commit changes
         CONN.commit()
 
@@ -29,6 +28,5 @@ class Song:
         for row in rows:
             song_id, title, artist_id = row
 
-            artist = find_artist_by_id(artist_id)
-            song = cls(song_id, title, artist)
+            song = cls(song_id, title)
             cls.all_songs.append(song)
