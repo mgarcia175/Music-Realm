@@ -34,26 +34,6 @@ def add_artist():
 
     print(f"Nice! 🎤'{artist_name}'🎤) has been successfully added!")
 
-
-
-
-
-
-def find_artist_by_id(artist_id):
-    query = f"SELECT * FROM artists WHERE id = {artist_id}"
-    CURSOR.execute(query)
-    result = CURSOR.fetchone()
-
-    if result:
-        return Artist(name=result[1], artist_id=result[0])
-    else:
-        return None
-
-
-
-
-
-
 def remove_artist():
     print("Removing artist...")
     
@@ -73,19 +53,8 @@ def remove_artist():
         print("Uh oh. It seems there is no artist by that ID.")
 
 
-
-
-
-
-
-
-
-
-
-
-
 def list_all_artists():
-    print("Listing all artists: ")
+    print(f"Listing all artists:")
 
     list_of_artists = None
     artists_found = False
@@ -93,7 +62,7 @@ def list_all_artists():
     for artist in Artist.all_artists:
         if artist:
             list_of_artists = artist
-            print(f"{artist.name} (ID: {artist.artist_id})")
+            print(f"🧑‍🎤{artist.name} (ID: {artist.artist_id})🧑‍🎤")
             artists_found = True
     if not artists_found:
         print("Oh no! There are currently no existing artists.. :(")
@@ -126,36 +95,10 @@ def add_song():
         #Add the song to the matching artist
         artist.add_song(newly_added_song)
         print(f"Nicely done! Song added: 🎶{newly_added_song}🎶")
-
-
-
-
-
-
-
-#This method will find the artist with the specific ID
-def find_artist_helper(needed_artist_id):
-    for artist in Artist.all_artists:
-        if artist.artist_id == needed_artist_id:
-            return artist
-    return None
-#This method will find the artist with the specific ID
-
-def find_song_by_id():
-    print("Finding song by ID")
-
-    desired_song_id = input("Enter the desired song's ID ")
-
-    found_song = None
-
-    for song in Song.all_songs:
-        if song.song_id == desired_song_id:
-            found_song = song
-            break
-    if found_song:
-        print(f"Song found! --> {found_song}")
     else:
-        print(f"Oops! There is no song with the ID of {desired_song_id}")
+        print(f"Nicely done! 🎶🎶{newly_added_song}🎶🎶 successfully added!")
+
+
 
 def remove_song():
     print("Removing song..")
@@ -193,23 +136,16 @@ def list_all_songs():
 def add_song_to_favorites():
     print("Adding song to your favorites!...")
 
-    needed_song_id = input("Enter your desired song's ID: ")
+    # needed_song_id = input("Enter your desired song's ID: ")
 
-    song_to_be_favorited = find_song_by_id(needed_song_id)
+    # song_to_be_favorited = find_song_by_id(needed_song_id)
 
-    if song_to_be_favorited:
-        favorited_song_instance = Favorited_Song(song=song_to_be_favorited)
-        print(f"Success! Song now favorited: {song_to_be_favorited.title}")
-    else:
-        print(f"Hmmm.. It looks like there is no song with the ID of {needed_song_id}")
-#This method will find the song with the inputted song ID
-def find_song_by_id(song_id):
-    from models.song import Song
-    for song in Song.all_songs:
-        if song.song_id == song_id:
-            return song
-    return None
-#This method will find the song with the inputted song ID
+    # if song_to_be_favorited:
+    #     favorited_song_instance = Favorited_Song(song=song_to_be_favorited)
+    #     print(f"Success! Song now favorited: {song_to_be_favorited.title}")
+    # else:
+    #     print(f"Hmmm.. It looks like there is no song with the ID of {needed_song_id}")
+
 
 
 def remove_favorited_song():
