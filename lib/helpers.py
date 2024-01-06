@@ -32,26 +32,27 @@ def add_artist():
 
     new_artist = Artist(name=artist_name, artist_id=new_artist_id)
 
-    print(f"Nice! 🎤'{artist_name}'🎤) has been successfully added!")
+    print(f"Nice! 🎤'{artist_name}'🎤 has been successfully added!")
+
+def find_artist_by_id(artist_id):
+    query = f"SELECT * FROM artists WHERE id = {artist_id}"
+    CURSOR.execute(query)
+    result = CURSOR.fetchone()
+
+    if result:
+        return Artist(name=result[1], artist_id=result[0])
+    else:
+        return None
 
 def remove_artist():
     print("Removing artist...")
-    
+
+    print("🧑‍🎤🎹🎸Artists Available🎸🎹🧑‍🎤")
+    list_all_artists()
+
     deleted_artist_id = input ("Please enter the artist's id to remove: ")
 
-    removed_artist = None
-
-    for artist in Artist.all_artists:
-        if artist.artist_id == deleted_artist_id:
-            removed_artist = artist
-            Artist.all_artists.remove(artist)
-            break
-
-    if removed_artist:
-        print(f"{removed_artist} has now been removed.")
-    else:
-        print("Uh oh. It seems there is no artist by that ID.")
-
+    artist_to_delete = find
 
 def list_all_artists():
     print(f"Listing all artists:")
@@ -62,7 +63,7 @@ def list_all_artists():
     for artist in Artist.all_artists:
         if artist:
             list_of_artists = artist
-            print(f"🧑‍🎤{artist.name} (ID: {artist.artist_id})🧑‍🎤")
+            print(f"🧑‍🎤🎹🎸{artist.name} (ID: {artist.artist_id})🎸🎹🧑‍🎤")
             artists_found = True
     if not artists_found:
         print("Oh no! There are currently no existing artists.. :(")
@@ -128,7 +129,7 @@ def list_all_songs():
     for song in Song.all_songs:
         if song:
             list_of_songs = song
-            print(song.title)
+            print(f'🎶🎹🎸{song.title}🎸🎹🎶')
             songs_found = True
     if not songs_found:
         print("Oh no! There are currently no existing songs.. :(")
