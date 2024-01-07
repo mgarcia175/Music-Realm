@@ -128,12 +128,12 @@ def add_song_to_favorites():
 
     if song_to_be_favorited:
         favorited_song_instance = Favorited_Song(song=song_to_be_favorited)
-        print(f"✅Success! Song now favorited: {song_to_be_favorited.title}✅")
+        print(f"✅Success! 🎶{song_to_be_favorited.title}🎶 now favorited:✅")
 
         query = "INSERT INTO favorites (song_id) VALUES (?)"
         execute_query(query, params=(song_to_be_favorited.song_id,))
     else:
-        print(f"Hmmm.. It looks like there is no song with the ID of {needed_song_id}")
+        print(f"Hmmm.. It looks like there is no song with the ID of {needed_song_id}.🙁")
 
 def remove_favorited_song():
     print("Removing Favorited song...")
@@ -163,8 +163,8 @@ def list_favorited_songs():
     for song in Favorited_Song.my_favorited_songs:
         if song:
             favorited_song_list = song
-            print(f"♫{song}♫")
+            print(f"🎶{song}🎶")
             favorite_songs_found = True
-        if not favorite_songs_found:
-            print("Hmm... There doesn't seem to be any songs in your Favorites at the moment. Sorry! 😢")
+    if not favorite_songs_found:
+        print("Hmm... There doesn't seem to be any songs in your Favorites at the moment. Sorry! 😢")
 #functions for song class
