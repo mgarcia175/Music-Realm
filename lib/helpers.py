@@ -14,7 +14,10 @@ def exit_program():
 def add_artist():
     print("Adding artist")
 
-    artist_name = input("Artist Name: ")
+    artist_name = input("Artist Name (Or enter 0 to go back): ")
+
+    if artist_name == '0':
+        return
 
     query = "INSERT INTO artists (name) VALUES (?)"
     new_artist_id = execute_query(query, params=(artist_name,), return_id=True)
@@ -56,7 +59,7 @@ def list_all_artists():
 def add_song():
     print("Adding song! Please provide the requred information..")
 
-    song_title = input('Song Title: ')
+    song_title = input('Song Title (Or enter 0 to go back): ')
 
     list_all_artists()
 
@@ -81,9 +84,12 @@ def remove_song():
 
     list_all_songs()
 
-    deleted_song_id = input("Please enter the song's ID to remove: ")
+    deleted_song_id = input("Please enter the song's ID to remove (Or enter 0 to go back): ")
 
     removed_song = find_song_by_id(deleted_song_id)
+
+    if deleted_song_id == '0':
+        return
     
     if removed_song:
         Song.all_songs.remove(removed_song)
@@ -122,9 +128,12 @@ def add_song_to_favorites():
 
     list_all_songs()
 
-    needed_song_id = input("Enter your desired song's ID: ")
+    needed_song_id = input("Enter your desired song's ID (Or enter 0 to go back): ")
 
     song_to_be_favorited = find_song_by_id(needed_song_id)
+
+    if needed_song_id == '0':
+        return
 
     if song_to_be_favorited:
         favorited_song_instance = Favorited_Song(song=song_to_be_favorited)
@@ -138,9 +147,14 @@ def add_song_to_favorites():
 def remove_favorited_song():
     print("Removing Favorited song...")
 
-    removed_favorited_song_id = input("Enter the faovorited song's ID: ")
+    list_favorited_songs()
+
+    removed_favorited_song_id = input("Enter the faovorited song's ID (Or enter 0 to go back): ")
 
     removed_song = None
+
+    if removed_favorited_song_id == '0':
+        return
 
     for favorited_song in Favorited_Song.my_favorited_songs:
         if favorited_song.song.song_id == removed_favorited_song_id:
@@ -149,13 +163,13 @@ def remove_favorited_song():
     
     if removed_song:
         Favorited_Song.my_favorited_songs.remove(removed_song)
-        print(f"✅{removed_song} has now been removed from your Favorites.✅")
+        print(f"Done! ❌{removed_song}❌ has now been removed from your Favorites.")
     else:
         print(f"Hmm... It seems there is no song with the ID of {removed_favorited_song_id} in your Favorites. 🙁")
 
 def list_favorited_songs():
     
-    print("Your Favorited Songs!..")
+    print("❤❤❤Your Favorited Songs❤❤❤")
 
     favorited_song_list = None
     favorite_songs_found = False
