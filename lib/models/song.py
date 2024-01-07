@@ -30,3 +30,12 @@ class Song:
 
             song = cls(song_id, title)
             cls.all_songs.append(song)
+
+    def add_song_instance(self):
+        if self not in Song.all_songs:
+            Song.all_songs.append(self)
+            if self.artist:
+                self.artist.add_song(self)
+
+    def assign_to_artist(self, artist):
+        self.artist = artist

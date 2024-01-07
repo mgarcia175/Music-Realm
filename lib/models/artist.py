@@ -31,6 +31,7 @@ class Artist:
 
     def add_song(self, song):
         self.songs.append(song)
+        song.assign_to_artist(self)
 
     def __repr__(self):
         return f"{self.name} (ID: {self.artist_id})"

@@ -11,6 +11,7 @@ from lib.helpers import (
     add_song,
     remove_song,
     list_all_songs,
+    list_artists_songs,
     add_song_to_favorites,
     remove_favorited_song,
     list_favorited_songs
@@ -35,28 +36,31 @@ def main():
             elif choice == "5":
                 list_all_songs()
             elif choice == "6":
-                add_song_to_favorites()
+                list_artists_songs()
             elif choice == "7":
-                remove_favorited_song()
+                add_song_to_favorites()
             elif choice == "8":
+                remove_favorited_song()
+            elif choice == "9":
                 list_favorited_songs()
 
             else:
-                print("Invalid choice. Please enter a number between 0 and 8.")
+                print("Invalid choice. Please enter a number between 0 and 9.")
         except ValueError:
-            print("Invalid input. Please enter a number between 0 and 8.")
+            print("Invalid input. Please enter a number between 0 and 9.")
 
 def menu():
     print("Please select an option:")
-    print("0. Exit")
-    print("1. Add an Artist +🧑‍🎤")
+    print("0. Exit 🚀")
+    print("1. Add an Artist ➕🧑‍🎤")
     print("2. List all Artists 📄")
-    print("3. Add a Song +🎶")
-    print("4. Remove a Song -🎶")
+    print("3. Add a Song ➕🎶")
+    print("4. Remove a Song ➖🎶")
     print("5. List all Songs 📄")
-    print("6. Add song to your Favorites +🎼")
-    print("7. Remove Favorited song -🎼")
-    print("8. List all Favorited songs 📄")
+    print("6. List an artist's assigned songs🕺🎶")
+    print("7. Add song to your Favorites ➕🎼")
+    print("8. Remove Favorited song ➖🎼")
+    print("9. List all Favorited songs 📄")
 
 if __name__ == "__main__":
     main()
