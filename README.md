@@ -1,4 +1,4 @@
-# Phase 3 Project -- Music Realm Creator
+# Music Realm Creator
 
 ## Introduction
 
@@ -7,6 +7,20 @@ Hello! Welcome to my Music Realm Creator. Your very own way to organize all of y
 From adding your own artist, songs and adding them to your Favorites, your control to your music, just got better!
 
 ---
+## Description
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Instructions
 

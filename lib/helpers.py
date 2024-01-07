@@ -1,4 +1,3 @@
-# lib/helpers.py
 import sqlite3
 from .models.artist import Artist
 from .models import CURSOR, CONN
@@ -10,9 +9,9 @@ def exit_program():
     print("Exiting menu.. Goodbye!")
     exit()
 
-#functions for artist vvvvv
+#functions for artist vvv
 def add_artist():
-    print("Adding artist")
+    print("---------🌟Adding artist🌟---------")
 
     artist_name = input("Artist Name (Or enter 0 to go back): ")
 
@@ -29,30 +28,14 @@ def add_artist():
 
     print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
 
-
-
-
-
-
-
-
-
 def find_artist_by_id(artist_id):
-    # query = f"SELECT * FROM artists WHERE id = {artist_id}"
-    # CURSOR.execute(query)
-    # result = CURSOR.fetchone()
-
-    # if result:
-    #     return Artist(name=result[1], artist_id=result[0])
-    # else:
-    #     return None
     for artist in Artist.all_artists:
         if artist.artist_id == int(artist_id):
             return artist
     return None
 
 def list_all_artists():
-    print(f"🌟Available Artists🌟")
+    print(f"---------🌟Available Artists🌟---------")
 
     list_of_artists = None
     artists_found = False
@@ -66,12 +49,11 @@ def list_all_artists():
         print("Oh no! There are currently no existing artists.. 😢")
 #functions for artist ^^^
 
-
 #functions for song class
 def add_song():
-    print("Adding song! Please provide the requred information..")
+    print("---------🎶Adding song🎶---------")
 
-    song_title = input('Song Title (Or enter 0 to go back): ')
+    song_title = input('Enter song title (Or enter 0 to go back): ')
 
     if song_title == "0":
         return
@@ -100,14 +82,8 @@ def add_song():
     else:
         print(f"Hmm.. It doesn't seem like there exists an artist with that ID. Sorry.🙁 ")
 
-
-
-
-
-
-
 def remove_song():
-    print("Removing Song...")
+    print("---------❌Removing Song❌---------")
 
     list_all_songs()
 
@@ -129,7 +105,7 @@ def remove_song():
 
 def list_all_songs():
 
-    print("🎹Available Songs🎹")
+    print("---------🎹Available Songs🎹---------")
 
     song_list = None
     found_songs = False
@@ -149,7 +125,7 @@ def find_song_by_id(song_id):
     return None
 
 def list_artists_songs():
-    print("🌟🌟Listing songs for an artist..🌟🌟.")
+    print("---------🌟🌟Listing songs for an artist---------🌟🌟")
 
     list_all_artists()
 
@@ -166,9 +142,8 @@ def list_artists_songs():
     else:
         print(f"Uh oh. There doesn't seem to be an artist with that ID🙁")
 
-
 def add_song_to_favorites():
-    print("Adding song to your favorites!...")
+    print("---------❤️Adding song to your favorites❤️---------")
 
     list_all_songs()
 
@@ -189,7 +164,7 @@ def add_song_to_favorites():
         print(f"Hmmm.. It looks like there is no song with the ID of {needed_song_id}.🙁")
 
 def remove_favorited_song():
-    print("Removing Favorited song...")
+    print("---------❌Removing Favorited song❌---------")
 
     list_favorited_songs()
 
@@ -213,7 +188,7 @@ def remove_favorited_song():
 
 def list_favorited_songs():
     
-    print("❤❤❤Your Favorited Songs❤❤❤")
+    print("---------❤️Your Favorited Songs❤️---------")
 
     favorited_song_list = None
     favorite_songs_found = False

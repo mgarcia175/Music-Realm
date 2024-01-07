@@ -12,7 +12,7 @@ class Artist:
     def __init__(self, name, artist_id):
         self.artist_id = artist_id
         self.name = name
-        
+
         #Will hold songs with the instance of the artist
         self.songs = []
 

@@ -50,8 +50,7 @@ def main():
             print("Invalid input. Please enter a number between 0 and 9.")
 
 def menu():
-    print("Please select an option:")
-    print("0. Exit 🚀")
+    print("----------Please select an option----------")
     print("1. Add an Artist ➕🧑‍🎤")
     print("2. List all Artists 📄")
     print("3. Add a Song ➕🎶")
@@ -61,6 +60,6 @@ def menu():
     print("7. Add song to your Favorites ➕🎼")
     print("8. Remove Favorited song ➖🎼")
     print("9. List all Favorited songs 📄")
-
+    print("Enter 0 to Exit 🚀")
 if __name__ == "__main__":
     main()
