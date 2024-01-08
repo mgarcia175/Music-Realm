@@ -125,7 +125,7 @@ def find_song_by_id(song_id):
     return None
 
 def list_artists_songs():
-    print("---------🌟🌟Listing songs for an artist---------🌟🌟")
+    print("---------🌟🌟Listing songs for an artist🌟🌟---------")
 
     list_all_artists()
 
@@ -168,7 +168,7 @@ def remove_favorited_song():
 
     list_favorited_songs()
 
-    removed_favorited_song_id = input("Enter the faovorited song's ID (Or enter 0 to go back): ")
+    removed_favorited_song_id = input("Enter the favorited song's ID (Or enter 0 to go back): ")
 
     removed_song = None
 
