@@ -20,14 +20,13 @@ class Artist:
         if artist_id is None:
             self.add_artist_to_db()
     
-    def __repr__(self):
-        return f"Artist: {self.name} (ID: {self.artist_id})"
-    
-    def add_artist_to_db(self):
-        CURSOR.execute("INSERT INTO artists (name) VALUES (?)", (self.name,))
-        self.artist_id = CURSOR.lastrowid
+    def add_artist_to_db(cls, name):
+        CURSOR.execute("INSERT INTO artists (name) VALUES (?)", (name,))
+        artist_id = CURSOR.lastrowid
         CONN.commit()
+        return cls(name, artist_id)
     
+    @classmethod
     def load_all_artists(cls):
         CURSOR.execute("SELECT * FROM artists")
         rows = CURSOR.fetchall()
@@ -40,5 +39,12 @@ class Artist:
 
     @staticmethod
     def remove_artist_from_db(artist_id):
-        CURSOR.execute("EXECUTE FROM artists where ID = ?", (artist_id,))
+        CURSOR.execute("DELETE FROM artists where ID = ?", (artist_id,))
         CONN.commit()
+
+    @staticmethod
+    def find_artist_by_id(cls, artist_id):
+        for artist in cls.all_artists:
+            if artist.artist_id == int(artist_id):
+                return artist
+        return None

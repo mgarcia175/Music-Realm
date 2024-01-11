@@ -33,7 +33,7 @@ class Song:
 
             if artist_id:
                 artist = Artist.find_artist_by_id(artist_id)
-
+    
             song = cls(song_id, title, artist)
             cls.all_songs.append(song)
 

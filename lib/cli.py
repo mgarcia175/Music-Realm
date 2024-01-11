@@ -15,7 +15,8 @@ from lib.helpers import (
     list_artists_songs,
     add_song_to_favorites,
     remove_favorited_song,
-    list_favorited_songs
+    list_favorited_songs,
+    find_artist_by_id
 )
 
 def main():
@@ -44,6 +45,8 @@ def main():
                 remove_favorited_song()
             elif choice == "9":
                 list_favorited_songs()
+            elif choice == "10":
+                find_artist_by_id
             else:
                 print("Invalid choice. Please enter a number between 0 and 9.")
         except ValueError:
@@ -60,6 +63,7 @@ def menu():
     print("7. Add song to your Favorites ➕🎼")
     print("8. Remove Favorited song ➖🎼")
     print("9. List all Favorited songs 📄")
+    print("10. Find an Artist by ID")
     print("Enter 0 to Exit 🚀")
 if __name__ == "__main__":
     main()

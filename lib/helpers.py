@@ -24,10 +24,13 @@ def add_artist():
     print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
 
 def find_artist_by_id(artist_id):
-    for artist in Artist.all_artists:
-        if artist.artist_id == int(artist_id):
-            return artist
-    return None
+    artist_id = input("Enter the Artist's ID: ")
+    artist = Artist.find_artist_by_id(artist_id)
+
+    if artist:
+        print(f"Nice! Found them! 🌟{artist.name} (ID: {artist.artist_id})🌟")
+    else:
+        print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
 
 def list_all_artists():
     print(f"---------🌟Available Artists🌟---------")
