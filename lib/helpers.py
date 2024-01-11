@@ -18,13 +18,8 @@ def add_artist():
     if artist_name == '0':
         return
 
-    query = "INSERT INTO artists (name) VALUES (?)"
-    new_artist_id = execute_query(query, params=(artist_name,), return_id=True)
-
-    new_artist = Artist(name=artist_name, artist_id=new_artist_id)
-
-    if new_artist not in Artist.all_artists:
-        new_artist.add_artist_instance()
+    new_artist = Artist(name=artist_name)
+    Artist.all_artists.append(new_artist)
 
     print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
 
@@ -77,7 +72,7 @@ def add_song():
     if artist:
         #Add the song to the matching artist
         artist.add_song(newly_added_song)
-        newly_added_song.assign_to_artist(artist)
+        newly_added_song.save_to_db
         print(f"✅Nicely done! Song added: 🎶{newly_added_song}🎶 and assigned to 🎤{artist}🎤!✅")
     else:
         print(f"Hmm.. It doesn't seem like there exists an artist with that ID. Sorry.🙁 ")

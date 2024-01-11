@@ -39,3 +39,8 @@ class Song:
 
     def assign_to_artist(self, artist):
         self.artist = artist
+
+    @staticmethod
+    def remove_song_from_db(song_id):
+        CURSOR.execute("DELETE FROM songs WHERE song_id = ?", (song_id,))
+        CONN.commit()
