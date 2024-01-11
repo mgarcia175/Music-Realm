@@ -90,11 +90,10 @@ def remove_song():
         return
     
     if removed_song:
+        Song.remove_song_from_db(remove_song.song_id)
         Song.all_songs.remove(removed_song)
         print(f"Done. ❌{removed_song}❌ has now been removed.")
 
-        query = "DELETE FROM songs WHERE song_id = ?"
-        execute_query(query, params=(removed_song.song_id,))
     else:
         print("Uh oh. It seems there is no song by that ID. 🙁")
 
@@ -150,11 +149,10 @@ def add_song_to_favorites():
         return
 
     if song_to_be_favorited:
-        favorited_song_instance = Favorited_Song(song=song_to_be_favorited)
+        favorited_song_instance = Favorited_Song(song_to_be_favorited)
+        Favorited_Song.add_favorited_song_to_db(song_to_be_favorited)
         print(f"✅Success! 🎶{song_to_be_favorited.title}🎶 now favorited:✅")
 
-        query = "INSERT INTO favorites (song_id) VALUES (?)"
-        execute_query(query, params=(song_to_be_favorited.song_id,))
     else:
         print(f"Hmmm.. It looks like there is no song with the ID of {needed_song_id}.🙁")
 
@@ -177,6 +175,7 @@ def remove_favorited_song():
     
     if removed_song:
         Favorited_Song.my_favorited_songs.remove(removed_song)
+        Favorited_Song.remove_favorited_song_from_db(remove_favorited_song)
         print(f"Done! ❌{removed_song}❌ has now been removed from your Favorites.")
     else:
         print(f"Hmm... It seems there is no song with the ID of {removed_favorited_song_id} in your Favorites. 🙁")

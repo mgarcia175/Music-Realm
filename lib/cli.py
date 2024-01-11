@@ -3,6 +3,7 @@ sys.path.append('.')
 
 from models.artist import Artist
 from models.song import Song
+from lib import helpers
 
 from lib.helpers import (
     exit_program,
@@ -43,7 +44,6 @@ def main():
                 remove_favorited_song()
             elif choice == "9":
                 list_favorited_songs()
-
             else:
                 print("Invalid choice. Please enter a number between 0 and 9.")
         except ValueError:

@@ -3,11 +3,12 @@ from lib.models.__init__ import CURSOR, CONN
 class Song:
     all_songs = []
 
-    def __init__(self, song_id, title, artist):
+    def __init__(self, song_id, title, artist=None):
         self.song_id = song_id
         self.artist = artist
         self.title = title
         Song.all_songs.append(self)
+        self.add_song_instance()
 
     def __str__(self):
         return f"{self.title}"
@@ -28,7 +29,12 @@ class Song:
         for row in rows:
             song_id, title, artist_id = row
 
-            song = cls(song_id, title)
+            artist = None
+
+            if artist_id:
+                artist = Artist.find_artist_by_id(artist_id)
+
+            song = cls(song_id, title, artist)
             cls.all_songs.append(song)
 
     def add_song_instance(self):
@@ -44,3 +50,5 @@ class Song:
     def remove_song_from_db(song_id):
         CURSOR.execute("DELETE FROM songs WHERE song_id = ?", (song_id,))
         CONN.commit()
+
+from models.artist import Artist
