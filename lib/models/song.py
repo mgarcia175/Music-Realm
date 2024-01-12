@@ -51,4 +51,11 @@ class Song:
         CURSOR.execute("DELETE FROM songs WHERE song_id = ?", (song_id,))
         CONN.commit()
 
+    @classmethod
+    def find_song_by_id(cls, song_id):
+        for song in cls.all_songs:
+            if song.song_id == song_id:
+                return song
+        return None
+
 from models.artist import Artist

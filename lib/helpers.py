@@ -1,7 +1,5 @@
 import sqlite3
 from .models.artist import Artist
-from .models import CURSOR, CONN
-from .util import execute_query
 from .models.favorites import Favorited_Song
 from models.song import Song
 
@@ -24,27 +22,35 @@ def add_artist():
     print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
 
 def find_artist_by_id(artist_id):
-    artist_id = input("Enter the Artist's ID: ")
-    artist = Artist.find_artist_by_id(artist_id)
+    try:
+        artist_id = input("Enter the Artist's ID: ")
+        artist = Artist.find_artist_by_id(artist_id)
 
-    if artist:
-        print(f"Nice! Found them! 🌟{artist.name} (ID: {artist.artist_id})🌟")
-    else:
-        print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
+        if artist:
+            print(f"Nice! Found them! 🌟{artist.name} (ID: {artist.artist_id})🌟")
+        else:
+            print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
+    except ValueError:
+        print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
 
 def list_all_artists():
-    print(f"---------🌟Available Artists🌟---------")
+    try:
+        print(f"---------🌟Available Artists🌟---------")
 
-    list_of_artists = None
-    artists_found = False
+        list_of_artists = None
+        artists_found = False
 
-    for artist in Artist.all_artists:
-        if artist:
-            list_of_artists = artist
-            print(f"🥁🎹🎸{artist.name} (ID: {artist.artist_id})🎸🎹🥁")
-            artists_found = True
-    if not artists_found:
-        print("Oh no! There are currently no existing artists.. 😢")
+        for artist in Artist.all_artists:
+            if artist:
+                list_of_artists = artist
+                print(f"🥁🎹🎸{artist.name} (ID: {artist.artist_id})🎸🎹🥁")
+                artists_found = True
+        if not artists_found:
+            print("Oh no! There are currently no existing artists.. 😢")
+    except ValueError as ve:
+        print(f"Error: {ve}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
 #functions for artist ^^^
 
 #functions for song class
@@ -64,6 +70,11 @@ def add_song():
 
     songs_artist_id = input('Enter the ID of the artist to assign your song!(`NA` if not assigning): ')
 
+    try:
+        songs_artist_id = int(songs_artist_id)
+    except ValueError:
+        print ("🛑Invalid input. Valid Song ID required.🛑")
+        return
     #In case NA is entered
     artist = find_artist_by_id(songs_artist_id) if songs_artist_id.lower() != 'na' else None
 
@@ -75,7 +86,7 @@ def add_song():
     if artist:
         #Add the song to the matching artist
         artist.add_song(newly_added_song)
-        newly_added_song.save_to_db
+        newly_added_song.save_to_db()
         print(f"✅Nicely done! Song added: 🎶{newly_added_song}🎶 and assigned to 🎤{artist}🎤!✅")
     else:
         print(f"Hmm.. It doesn't seem like there exists an artist with that ID. Sorry.🙁 ")
@@ -87,18 +98,26 @@ def remove_song():
 
     deleted_song_id = input("Please enter the song's ID to remove (Or enter 0 to go back): ")
 
+    try:
+        deleted_song_id = int(deleted_song_id)
+    except ValueError:
+        print("🛑Invalid input. Valid Song ID required.🛑")
+
     removed_song = find_song_by_id(deleted_song_id)
 
     if deleted_song_id == '0':
         return
     
     if removed_song:
-        Song.remove_song_from_db(remove_song.song_id)
-        Song.all_songs.remove(removed_song)
-        print(f"Done. ❌{removed_song}❌ has now been removed.")
+        try:
+            Song.remove_song_from_db(remove_song.song_id)
+            Song.all_songs.remove(removed_song)
+            print(f"Done. ❌{removed_song}❌ has now been removed.")
+        except Exception as ex:
+            print(f"🛑Uh oh! Error occurred while removing!🛑: {ex}")
 
-    else:
-        print("Uh oh. It seems there is no song by that ID. 🙁")
+        else:
+            print("Uh oh. It seems there is no song by that ID. 🙁")
 
 def list_all_songs():
 
@@ -115,11 +134,17 @@ def list_all_songs():
     if not found_songs:
         print("Oh no! There are currently no existing songs.. 😢")
 
-def find_song_by_id(song_id):
-    for song in Song.all_songs:
-        if song.song_id == song_id:
-            return song
-    return None
+def find_song_by_id():
+    try:
+        song_id = input("Please enter the Song's ID: ")
+        song = find_artist_by_id(song_id)
+
+        if song:
+            print(f"Nice! Found it! 🎶{song.title} (ID: {song.song_id})🎶")
+        else:
+            print(f"Uh oh.. Looks like we don't have an song with that ID 😢")
+    except ValueError:
+        print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
 
 def list_artists_songs():
     print("---------🌟🌟Listing songs for an artist🌟🌟---------")
@@ -164,24 +189,30 @@ def remove_favorited_song():
 
     list_favorited_songs()
 
-    removed_favorited_song_id = input("Enter the favorited song's ID (Or enter 0 to go back): ")
+    try:
+        removed_favorited_song_id = input("Enter the favorited song's ID (Or enter 0 to go back): ")
 
-    removed_song = None
+        removed_song = None
 
-    if removed_favorited_song_id == '0':
-        return
+        if removed_favorited_song_id == '0':
+            return
 
-    for favorited_song in Favorited_Song.my_favorited_songs:
-        if favorited_song.song.song_id == removed_favorited_song_id:
-            removed_song = favorited_song
-            break
-    
-    if removed_song:
-        Favorited_Song.my_favorited_songs.remove(removed_song)
-        Favorited_Song.remove_favorited_song_from_db(remove_favorited_song)
-        print(f"Done! ❌{removed_song}❌ has now been removed from your Favorites.")
-    else:
-        print(f"Hmm... It seems there is no song with the ID of {removed_favorited_song_id} in your Favorites. 🙁")
+        for favorited_song in Favorited_Song.my_favorited_songs:
+            if favorited_song.song.song_id == removed_favorited_song_id:
+                removed_song = favorited_song
+                break
+        
+        if removed_song:
+            Favorited_Song.my_favorited_songs.remove(removed_song)
+            Favorited_Song.remove_favorited_song_from_db(removed_favorited_song_id)
+            print(f"Done! ❌{removed_song}❌ has now been removed from your Favorites.")
+        else:
+            print(f"Hmm... It seems there is no song with the ID of {removed_favorited_song_id} in your Favorites. 🙁")
+
+    except ValueError:
+        print("🛑Invalid input. Valid Song ID required.🛑")
+    except Exception as ex:
+        print(f"🛑Error! {ex}🛑")
 
 def list_favorited_songs():
     
@@ -198,3 +229,17 @@ def list_favorited_songs():
     if not favorite_songs_found:
         print("Hmm... There doesn't seem to be any songs in your Favorites at the moment. Sorry! 😢")
 #functions for song class
+        
+def find_favorited_song_by_id():
+
+    try:
+        favorited_song_id = input("Enter the favorited Song's ID: ")
+        favorited_song = Favorited_Song.find_favorited_song_by_id(favorited_song_id)
+                              
+        if favorited_song:
+            print(f"Nice! Found it! 🎶{favorited_song.song.title} (ID: {favorited_song.song.song_id})🎶")
+        else:
+            print(f"Uh oh.. Looks like you don't have a favorited song with that ID 😢")
+    except ValueError:
+        print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
+
