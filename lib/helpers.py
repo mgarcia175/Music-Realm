@@ -171,15 +171,23 @@ def add_song_to_favorites():
 
     needed_song_id = input("Enter your desired song's ID (Or enter 0 to go back): ")
 
+    try:
+        needed_song_id = int(needed_song_id)
+    except ValueError:
+        print("🛑Err! Not a valid and numeric ID!🛑")
+
     song_to_be_favorited = find_song_by_id(needed_song_id)
 
     if needed_song_id == '0':
         return
 
     if song_to_be_favorited:
-        favorited_song_instance = Favorited_Song(song_to_be_favorited)
-        Favorited_Song.add_favorited_song_to_db(song_to_be_favorited)
-        print(f"✅Success! 🎶{song_to_be_favorited.title}🎶 now favorited:✅")
+        try:
+            favorited_song_instance = Favorited_Song(song_to_be_favorited)
+            Favorited_Song.add_favorited_song_to_db(song_to_be_favorited)
+            print(f"✅Success! 🎶{song_to_be_favorited.title}🎶 now favorited:✅")
+        except Exception as e:
+            print(f"🛑Uh oh! Stop right there! Error has occurred: {e}🛑")
 
     else:
         print(f"Hmmm.. It looks like there is no song with the ID of {needed_song_id}.🙁")
@@ -242,4 +250,3 @@ def find_favorited_song_by_id():
             print(f"Uh oh.. Looks like you don't have a favorited song with that ID 😢")
     except ValueError:
         print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
-
