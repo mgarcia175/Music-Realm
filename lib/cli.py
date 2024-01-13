@@ -25,7 +25,7 @@ def main():
     while True:
         menu()
         try:
-            choice = input("> ")
+            choice = input(">>> ")
             if choice == "0":
                 exit_program()
 
@@ -54,9 +54,9 @@ def main():
             elif choice == "12":
                 find_favorited_song_by_id()
             else:
-                print("Invalid choice. Please enter a number between 0 and 9.")
-        except ValueError:
-            print("Invalid input. Please enter a number between 0 and 9.")
+                print("Invalid choice. Please enter a number between 0 and 12.")
+        except Exception as ex:
+            print(f"🛑Whoaaaa! Unexpected error!🛑: {ex}")
 
 def menu():
     print("----------Please select an option----------")

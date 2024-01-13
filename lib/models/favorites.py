@@ -1,5 +1,4 @@
 import sqlite3
-from lib.util import execute_query
 from lib.models.__init__ import CURSOR, CONN
 from models.song import Song
 
@@ -18,8 +17,8 @@ class Favorited_Song:
         else:
             return "Invalid Favorited Song"
 
-    @staticmethod
-    def add_favorited_song_to_db(song_id):
+    @classmethod
+    def add_favorited_song_to_db(cls, song_id):
         CURSOR.execute("INSERT INTO favorited_songs (song_id) VALUES (?)", (song_id,))
         CONN.commit()
 

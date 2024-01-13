@@ -1,9 +1,5 @@
 import sqlite3
-from lib.util import execute_query
 from lib.models.__init__ import CURSOR, CONN
-
-CONN = sqlite3.connect('music_libr.db')
-CURSOR = CONN.cursor()
 
 class Artist:
 
@@ -19,32 +15,45 @@ class Artist:
 
         if artist_id is None:
             self.add_artist_to_db()
-    
-    def add_artist_to_db(cls, name):
-        CURSOR.execute("INSERT INTO artists (name) VALUES (?)", (name,))
-        artist_id = CURSOR.lastrowid
+
+    def __str__(self):
+        return f"{self.name} (ID: {self.artist_id})"
+
+    def add_song(self, song):
+        """
+        Add a song to the artist's list of songs.
+        """
+        self.songs.append(song)
+
+    def add_artist_to_db(self):
+        CURSOR.execute("INSERT INTO artists (name) VALUES (?)", (self.name,))
+        self.artist_id = CURSOR.lastrowid
         CONN.commit()
-        return cls(name, artist_id)
-    
+
     @classmethod
     def load_all_artists(cls):
-        CURSOR.execute("SELECT * FROM artists")
-        rows = CURSOR.fetchall()
+        try:
+            CURSOR.execute("SELECT * FROM artists")
+            rows = CURSOR.fetchall()
 
-        for row in rows:
-            artist_id, name = row
+            cls.all_artists.clear()
+            
+            for row in rows:
+                artist_id, name = row[0], row[1]
+                artist = cls(name, artist_id)
+                cls.all_artists.append(artist)
 
-            artist = cls(name, artist_id)
-            cls.all_artists.append(artist)
+        except Exception as e:
+            raise e
 
-    @staticmethod
-    def remove_artist_from_db(artist_id):
+    @classmethod
+    def remove_artist_from_db(cls, artist_id):
         CURSOR.execute("DELETE FROM artists where ID = ?", (artist_id,))
         CONN.commit()
 
-    @staticmethod
+    @classmethod
     def find_artist_by_id(cls, artist_id):
-        for artist in cls.all_artists:
-            if artist.artist_id == int(artist_id):
-                return artist
-        return None
+
+        existing_artist = next((artist for artist in cls.all_artists if artist.artist_id == artist_id), None)
+        return existing_artist
+    

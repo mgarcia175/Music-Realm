@@ -1,3 +1,5 @@
+
+
 --artist table creation
 CREATE TABLE IF NOT EXISTS artists (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
