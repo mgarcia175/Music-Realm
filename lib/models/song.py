@@ -13,6 +13,9 @@ class Song:
         if song_id is None:
             self.add_song_to_db()
 
+    def __repr__(self):
+        return f'<Song {self.song_id}: {self.title} | Artist: {self.artist.name if self.artist else "Not Assigned"}>'
+    
     @classmethod
     def create_table(cls):
         sql = """

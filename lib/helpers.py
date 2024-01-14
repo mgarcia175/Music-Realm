@@ -90,6 +90,7 @@ def add_song():
     newly_added_song.save_to_db()
     
     print(f"✅Nicely done! Song added: 🎶{newly_added_song}🎶 and assigned to 🎤{artist}🎤!✅")
+
 def remove_song():
     print("---------❌Removing Song❌---------")
 
@@ -106,6 +107,7 @@ def remove_song():
     if deleted_song_id == 0:
         return
 
+    # Find the song by ID
     removed_song = find_song_by_id(deleted_song_id)
 
     if removed_song:
@@ -116,12 +118,12 @@ def remove_song():
             # Remove the song from the database
             Song.remove_song_from_db(removed_song.song_id)
 
-            print(f"Done. ❌{removed_song}❌ has now been removed.")
+            artist_name = removed_song.artist.name if removed_song.artist else 'Not Assigned'
+            print(f"Done. ❌{removed_song.title} (ID: {removed_song.song_id})❌ has now been removed. Artist: {artist_name}")
         except Exception as ex:
             print(f"🛑Uh oh! Error occurred while removing!🛑: {ex}")
     else:
-        print("Uh oh. It seems there is no song by that ID. 🙁")
-
+        print(f"Uh oh. It seems there is no song with ID {deleted_song_id}. 🙁")
 
 def list_all_songs():
     try:
@@ -131,9 +133,9 @@ def list_all_songs():
         found_songs = False
         
         for song in Song.all_songs:
-            print(f"🎶 {song.title} | Artist: {song.artist.name if song.artist else 'Not Assigned'}")
+            print(f"🎶{song.title} | ID: {song.song_id}🎶")
             found_songs = True
-        
+
         if not Song.all_songs:
             print("Oh no! There are currently no existing songs.. 😢")
             return
@@ -142,15 +144,17 @@ def list_all_songs():
 
 def find_song_by_id(song_id):
     try:
-        song = Song.find_song_by_id(song_id)
+        song = next((song for song in Song.all_songs if song.song_id == song_id), None)
 
         if song:
             print(f"Nice! Found it! 🎶{song.title} (ID: {song.song_id})🎶")
+            return song
         else:
             print(f"Uh oh.. Looks like we don't have a song with that ID 😢")
+            return None
     except ValueError:
         print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
-
+        return None
 
 def list_artists_songs():
     print("---------🌟🌟Listing songs for an artist🌟🌟---------")
