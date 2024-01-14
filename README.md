@@ -41,12 +41,12 @@ Take a look at the directory structure:
 │   │   ├── __pycache__
 │   │   │   ├── __init__.cpython-38.pyc
 │   │   │   ├── artist.cpython-38.pyc
+│   │   │   ├── favorites.cpython-38.pyc
 │   │   │   └── song.cpython-38.pyc
 │   │   ├── artist.py
 │   │   └── song.py
 │   └── util.py
-├── music_libr.db
-└── tables.sql
+└── music_libr.db
 ```
 ---
 ## Usage
@@ -73,7 +73,8 @@ Once we run `python lib/cli.py`, we are given a menu, with 10 options to choose 
 3. Add a Song ➕🎶
 4. Remove a Song ➖🎶
 5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
+6. Find an Artist by ID 🔍
+7. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
 ```
 These options and actions derive their logic and functionality from our `lib/helpers.py file`. We will visit them now.
@@ -84,7 +85,7 @@ These options and actions derive their logic and functionality from our `lib/hel
 
 Option 1 allows the user to add an artist of their choice. Once the option is chosen, the user will be prompted to enter the artist's name for submission, which will then create the desired artist!:
 ```
-> 1
+>>> 1
 ---------🌟Adding artist🌟---------
 Artist Name (Or enter 0 to go back): Michael Jackson
 ✅Nice! 🎤'Michael Jackson'🎤 has been successfully added!✅
@@ -94,9 +95,9 @@ Artist Name (Or enter 0 to go back): Michael Jackson
 3. Add a Song ➕🎶
 4. Remove a Song ➖🎶
 5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
+6. Find an Artist by ID 🔍
+7. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
->
 ```
 
 ```2. List all Artists 📄```
@@ -112,10 +113,10 @@ Option 2 will list all of the created artists for the user. However, remember th
 3. Add a Song ➕🎶
 4. Remove a Song ➖🎶
 5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
-7. Add song to your s ➕🎼
+6. Find an Artist by ID 🔍
+7. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
->
+>>>
 ```
 
 ```3. Add a Song ➕🎶```
@@ -123,7 +124,7 @@ Enter 0 to Exit 🚀
 Option 3 will allow the user to add a song. The user will be prompted to enter the name od the desired song. Once this is done, the user will also be given the ability to assign the song to an artist, if so desired, by entering the artist's ID. If not, simply enter 'NA'.:
 
 ```
-> 3
+>>> 3
 ---------🎶Adding song🎶---------
 Enter song title (Or enter 0 to go back): Billy Jean
 ---------🌟Available Artists🌟---------
@@ -137,9 +138,10 @@ Song Title:Billy Jean, Assigned Artist: Michael Jackson
 3. Add a Song ➕🎶
 4. Remove a Song ➖🎶
 5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
+6. Find an Artist by ID 🔍
+7. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
->
+>>>
 ```
 
 ```4. Remove a Song ➖🎶```
@@ -147,7 +149,7 @@ Enter 0 to Exit 🚀
 Option 4 will prompt the user to enter a song's ID, for removal. Please keep in mind that this cannot be undone, once processed. If the song is desired again, it will have to be added again, manually.:
 
 ```
-> 4
+>>> 4
 ---------❌Removing Song❌---------
 ---------🎹Available Songs🎹---------
 🎶Billy Jean (ID:billy_jean🎶)
@@ -159,10 +161,10 @@ Done. ❌Billy Jean❌ has now been removed.
 3. Add a Song ➕🎶
 4. Remove a Song ➖🎶
 5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
-
+6. Find an Artist by ID 🔍
+7. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
->
+>>>
 ```
 
 ```5. List all Songs 📄```
@@ -170,7 +172,7 @@ Enter 0 to Exit 🚀
 Option 5 will list all of the available songs. Similar to the songs, remember that there is an option which will remove an artist/song, which we will cover shortly. But if a song/artist is removed, the said song/artist will not be shown any longer, unless added again. For the purposes of the example, I have added more songs, for listing!:
 
 ```
-> 5
+>>> 5
 ---------🎹Available Songs🎹---------
 🎶American Idiot (ID:american_idiot🎶)
 🎶Smooth Criminal (ID:smooth_criminal🎶)
@@ -181,17 +183,18 @@ Option 5 will list all of the available songs. Similar to the songs, remember th
 3. Add a Song ➕🎶
 4. Remove a Song ➖🎶
 5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
+6. Find an Artist by ID 🔍
+7. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
->
+>>>
 ```
 
-```6. List an artist's assigned songs🕺🎶```
+```6. Find an Artist by ID 🔍```
 
-Option 6 will list every song that is assigned to an artist, once enetered the artist's ID. For the purposes of the example, I have already assigned songs to the artist Michael Jackson!:
+Option 6 will list an specific artist you are looking for, along with it's id.
 
 ```
-> 6
+>>> 6
 ---------🌟🌟Listing songs for an artist🌟🌟---------
 ---------🌟Available Artists🌟---------
 🥁🎹🎸Michael Jackson (ID: 35)🎸🎹🥁
@@ -208,10 +211,30 @@ Songs by 🌟Michael Jackson🌟
 3. Add a Song ➕🎶
 4. Remove a Song ➖🎶
 5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
-
+6. Find an Artist by ID 🔍
+7. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
->
+>>>
+```
+
+```7. Find a Song by ID 🔍 ```
+
+Option 7 will populate the information of a given song, once it's id is provided!
+```
+----------Please select an option----------
+1. Add an Artist ➕🧑‍🎤
+2. List all Artists 📄
+3. Add a Song ➕🎶
+4. Remove a Song ➖🎶
+5. List all Songs 📄
+6. Find an Artist by ID 🔍
+7. Find a Song by ID 🔍
+Enter 0 to Exit 🚀
+>>> 7
+Enter the ID of the song: 8
+Nice! Found it! 🎶Billy Jean (ID: 8)🎶
+Details for the song Billy Jean (ID: 8):
+Artist: 🎶🧑‍🎤Michael Jackson🧑‍🎤🎶
 ```
 
 
@@ -226,9 +249,10 @@ Lastly, if the user would like to leave the application, entering 9 will close t
 3. Add a Song ➕🎶
 4. Remove a Song ➖🎶
 5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
+6. Find an Artist by ID 🔍
+7. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
-> 0
+>>> 0
 Exiting menu.. Goodbye!
 ```
 

@@ -27,7 +27,7 @@ def add_artist():
 def find_artist_by_input():
     try:
         artist_id = int(input("Enter the ID of the artist: "))
-        artist = Artist.find_artist_by_input(artist_id)
+        artist = Artist.find_artist_by_id(artist_id)
 
         if artist:
             print(f"Nice! Found them! 🌟{artist.name} (ID: {artist.artist_id})🌟")
@@ -70,6 +70,7 @@ def add_song():
         return
 
     # Check if the provided artist ID is valid
+    # artist = find_artist_by_input(artist_id)
     artist = Artist.find_artist_by_id(artist_id)
 
     if not artist:
@@ -91,7 +92,6 @@ def add_song():
     newly_added_song.save_to_db()
     
     print(f"✅Nicely done! Song added: 🎶{newly_added_song}🎶 and assigned to 🎤{artist}🎤!✅")
-
 def remove_song():
     print("---------❌Removing Song❌---------")
 
@@ -113,15 +113,16 @@ def remove_song():
 
     if removed_song:
         try:
-            # Remove the song from the list of songs in memory
-            Song.all_songs.remove(removed_song)
+            # Remove the song from the list of songs in memory if it exists
+            if removed_song in Song.all_songs:
+                Song.all_songs.remove(removed_song)
 
             # Remove the song from the database
             Song.remove_song_from_db(removed_song.song_id)
 
             artist_name = removed_song.artist.name if removed_song.artist else 'Not Assigned'
             print(f"Done. ❌{removed_song.title} (ID: {removed_song.song_id})❌ has now been removed. Artist: {artist_name}")
-        except Exception as ex:
+        except ValueError as ex:
             print(f"🛑Uh oh! Error occurred while removing!🛑: {ex}")
     else:
         print(f"Uh oh. It seems there is no song with ID {deleted_song_id}. 🙁")
@@ -143,16 +144,51 @@ def list_all_songs():
     except ValueError as ve:
         print(f"Error: {ve}")
 
-def find_song_by_id(song_id):
+def find_song_by_id():
     try:
-        song = next((song for song in Song.all_songs if song.song_id == song_id), None)
+        song_id = input("Enter the ID of the song: ")
+        found_song = Song.find_song_by_id(song_id)
 
-        if song:
-            print(f"Nice! Found it! 🎶{song.title} (ID: {song.song_id})🎶")
-            return song
+        if found_song:
+            print(f"Details for the song {found_song.title} (ID: {found_song.song_id}):")
+            print(f"Artist: {found_song.artist.name if found_song.artist else 'Not Assigned'}")
+            # Add more details as needed
         else:
-            print(f"Uh oh.. Looks like we don't have a song with that ID 😢")
-            return None
+            print(f"Uh oh. Looks like we don't have a song with that ID 😢")
+
     except ValueError:
-        print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
-        return None
+        print("Invalid input. Please enter a valid Song ID.")
+    except Exception as e:
+        print(f"Error occurred: {e}")
+
+def view_artist_songs():
+    artists = Artist.load_all_artists()
+
+    print("Select an artist:")
+    for i, artist in enumerate(artists, start=1):
+        print(f"{i}. {artist.name}")
+
+    try:
+        artist_index = int(input("Enter the number of the artist: "))
+        selected_artist = artists[artist_index - 1]  # Adjust index since it starts from 1
+        artist_id = selected_artist.artist_id
+
+        print(f"\nSongs for {selected_artist.name}:")
+        # Call the new method to display songs for the selected artist
+        Song.load_songs_for_artist(artist_id)
+    except (ValueError, IndexError):
+        print("Invalid input or artist not found.")
+
+# Example context where you want to find a song by ID
+def view_song_details():
+    song_id = input("Enter the ID of the song: ")
+    
+    # Call the method to find the song by ID
+    found_song = Song.find_song_by_id(song_id)
+
+    if found_song:
+        print(f"Details for the song {found_song.title} (ID: {found_song.song_id}):")
+        print(f"Artist: {found_song.artist.name if found_song.artist else 'Not Assigned'}")
+        # Add more details as needed
+    else:
+        print(f"Uh oh. Looks like we don't have a song with that ID 😢")

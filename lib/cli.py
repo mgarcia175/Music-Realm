@@ -51,7 +51,7 @@ def menu():
     print("4. Remove a Song ➖🎶")
     print("5. List all Songs 📄")
     print("6. Find an Artist by ID 🔍")
-    print("7. Find song by ID 🔍")
+    print("7. Find a Song by ID 🔍")
 
     print("Enter 0 to Exit 🚀")
 
