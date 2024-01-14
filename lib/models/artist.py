@@ -11,9 +11,10 @@ class Artist:
 
         if artist_id is None:
             self.add_artist_to_db()
+
     def __repr__(self):
         return f'<Artist {self.artist_id}: {self.name}>'
-    
+
     @classmethod
     def create_table(cls):
         sql = """
@@ -59,7 +60,15 @@ class Artist:
 
     @classmethod
     def find_artist_by_id(cls, artist_id):
-        existing_artist = next((artist for artist in cls.all_artists if artist.artist_id == artist_id), None)
-        return existing_artist
+        sql = """
+            SELECT *
+            FROM artists
+            WHERE id = ?
+        """
+        row = CURSOR.execute(sql, (artist_id,)).fetchone()
+        if row:
+            return cls(name=row[1], artist_id=row[0])
+        else:
+            return None
 
 Artist.create_table()

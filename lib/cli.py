@@ -12,8 +12,7 @@ from lib.helpers import (
     add_song,
     remove_song,
     list_all_songs,
-    list_artists_songs,
-    find_artist_by_id,
+    find_artist_by_input,
     find_song_by_id,
 )
 
@@ -36,7 +35,7 @@ def main():
             elif choice == "5":
                 list_all_songs()
             elif choice == "6":
-                find_artist_by_id()
+                find_artist_by_input()
             elif choice == "7":
                 find_song_by_id()
             else:

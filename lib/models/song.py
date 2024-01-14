@@ -64,5 +64,3 @@ class Song:
     def find_song_by_id(cls, song_id):
         existing_song = next((song for song in cls.all_songs if song.song_id == song_id), None)
         return existing_song
-
-Song.create_table()

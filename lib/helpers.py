@@ -24,19 +24,20 @@ def add_artist():
         Artist(name=artist_name)
         print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
 
-def find_artist_by_id(artist_id):
+def find_artist_by_input():
     try:
-        artist_id = int(artist_id)
-        artist = next((artist for artist in Artist.all_artists if artist.artist_id == artist_id), None)
+        artist_id = int(input("Enter the ID of the artist: "))
+        artist = Artist.find_artist_by_input(artist_id)
 
         if artist:
             print(f"Nice! Found them! 🌟{artist.name} (ID: {artist.artist_id})🌟")
             return artist
         else:
-                print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
-                return None
+            print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
+            return None
     except ValueError:
         print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
+        return None
 
 def list_all_artists():
     try:
@@ -69,7 +70,7 @@ def add_song():
         return
 
     # Check if the provided artist ID is valid
-    artist = find_artist_by_id(artist_id)
+    artist = Artist.find_artist_by_id(artist_id)
 
     if not artist:
         print("Hmm.. It doesn't seem like there exists an artist with that ID. Sorry.🙁 ")
