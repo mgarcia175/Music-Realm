@@ -36,10 +36,8 @@ def main():
             elif choice == "5":
                 list_all_songs()
             elif choice == "6":
-                list_artists_songs()
-            elif choice == "7":
                 find_artist_by_id()
-            elif choice == "8":
+            elif choice == "7":
                 find_song_by_id()
             else:
                 print("Invalid choice. Please enter a number between 0 and 12.")
@@ -53,9 +51,8 @@ def menu():
     print("3. Add a Song ➕🎶")
     print("4. Remove a Song ➖🎶")
     print("5. List all Songs 📄")
-    print("6. List an artist's assigned songs🕺🎶")
-    print("7. Find an Artist by ID 🔍")
-    print("8. Find song by ID 🔍")
+    print("6. Find an Artist by ID 🔍")
+    print("7. Find song by ID 🔍")
 
     print("Enter 0 to Exit 🚀")
 

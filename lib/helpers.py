@@ -155,22 +155,3 @@ def find_song_by_id(song_id):
     except ValueError:
         print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
         return None
-
-def list_artists_songs():
-    print("---------🌟🌟Listing songs for an artist🌟🌟---------")
-
-    list_all_artists()
-
-    selected_artist_id = input("Enter the artist's ID: ")
-
-    selected_artist = find_artist_by_id(selected_artist_id)
-
-    if selected_artist:
-        #Checking for songs under the desired artist
-        if selected_artist.songs:
-            print(f"Songs by 🌟{selected_artist.name}🌟")
-            for song in selected_artist.songs:
-                print(f"🎶{song.title} (ID: {song.song_id})🎶")
-    else:
-        print(f"Uh oh. There doesn't seem to be an artist with that ID🙁")
-
