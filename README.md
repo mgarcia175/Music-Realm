@@ -3,7 +3,7 @@
 ## Description
 Hello! Welcome to my Music Realm Creator. Your very own way to organize all of your music-related things!
 
-From adding your own artist, songs and adding them to your Favorites, your control to your music, just got better!
+From adding your own artist, songs and adding them to your control to your music, just got better!
 
 ## Visuals
 
@@ -41,10 +41,8 @@ Take a look at the directory structure:
 │   │   ├── __pycache__
 │   │   │   ├── __init__.cpython-38.pyc
 │   │   │   ├── artist.cpython-38.pyc
-│   │   │   ├── favorites.cpython-38.pyc
 │   │   │   └── song.cpython-38.pyc
 │   │   ├── artist.py
-│   │   ├── favorites.py
 │   │   └── song.py
 │   └── util.py
 ├── music_libr.db
@@ -58,8 +56,6 @@ Take a look at the directory structure:
 + Allows the user to add all of their known songs
 + Allows the user to add all of their known artists
 + Allows the user to customize these submission by removing, adding and assigning their songs to the song's corresponding artist
-+ Gives a user the ability to add their most loved songs to their 'Favorites'
-+ Helps the user keep track and organize by being able to list their songs/artists/favorited songs
 
 Let's go through it!
 
@@ -78,9 +74,6 @@ Once we run `python lib/cli.py`, we are given a menu, with 10 options to choose 
 4. Remove a Song ➖🎶
 5. List all Songs 📄
 6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
 Enter 0 to Exit 🚀
 ```
 These options and actions derive their logic and functionality from our `lib/helpers.py file`. We will visit them now.
@@ -102,9 +95,6 @@ Artist Name (Or enter 0 to go back): Michael Jackson
 4. Remove a Song ➖🎶
 5. List all Songs 📄
 6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
 Enter 0 to Exit 🚀
 >
 ```
@@ -123,9 +113,7 @@ Option 2 will list all of the created artists for the user. However, remember th
 4. Remove a Song ➖🎶
 5. List all Songs 📄
 6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
+7. Add song to your s ➕🎼
 Enter 0 to Exit 🚀
 >
 ```
@@ -150,9 +138,6 @@ Song Title:Billy Jean, Assigned Artist: Michael Jackson
 4. Remove a Song ➖🎶
 5. List all Songs 📄
 6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
 Enter 0 to Exit 🚀
 >
 ```
@@ -175,9 +160,7 @@ Done. ❌Billy Jean❌ has now been removed.
 4. Remove a Song ➖🎶
 5. List all Songs 📄
 6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
+
 Enter 0 to Exit 🚀
 >
 ```
@@ -199,9 +182,6 @@ Option 5 will list all of the available songs. Similar to the songs, remember th
 4. Remove a Song ➖🎶
 5. List all Songs 📄
 6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
 Enter 0 to Exit 🚀
 >
 ```
@@ -229,104 +209,11 @@ Songs by 🌟Michael Jackson🌟
 4. Remove a Song ➖🎶
 5. List all Songs 📄
 6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
+
 Enter 0 to Exit 🚀
 >
 ```
 
-```7. Add song to your Favorites ➕🎼```
-
-Option 7 gives the user the ability to add songs to their 'Favorites'! The user will be prompted for the song's ID.:
-
-```
-> 7
----------❤️Adding song to your favorites❤️---------
----------🎹Available Songs🎹---------
-🎶American Idiot (ID:american_idiot🎶)
-🎶Smooth Criminal (ID:smooth_criminal🎶)
-🎶Party in the USA (ID:party_in_the_usa🎶)
-🎶Bad (ID:bad🎶)
-🎶Black or White (ID:black_or_white🎶)
-🎶Thriller (ID:thriller🎶)
-🎶Beat It (ID:beat_it🎶)
-Enter your desired song's ID (Or enter 0 to go back): smooth_criminal
-✅Success! 🎶Smooth Criminal🎶 now favorited:✅
-----------Please select an option----------
-1. Add an Artist ➕🧑‍🎤
-2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
-5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
-Enter 0 to Exit 🚀
-> 7
----------❤️Adding song to your favorites❤️---------
----------🎹Available Songs🎹---------
-🎶American Idiot (ID:american_idiot🎶)
-🎶Smooth Criminal (ID:smooth_criminal🎶)
-🎶Party in the USA (ID:party_in_the_usa🎶)
-🎶Bad (ID:bad🎶)
-🎶Black or White (ID:black_or_white🎶)
-🎶Thriller (ID:thriller🎶)
-🎶Beat It (ID:beat_it🎶)
-Enter your desired song's ID (Or enter 0 to go back): black_or_white
-✅Success! 🎶Black or White🎶 now favorited:✅
-```
-
-```8. Remove Favorited song ➖🎼```
-
-Option 8 will allow the user to remove a song from the user's Favorites. The user will be prompter for the song's ID:
-
-```
-> 8
----------❌Removing Favorited song❌---------
----------❤️Your Favorited Songs❤️---------
-🎶American Idiot(ID: american_idiot)🎶
-🎶Smooth Criminal(ID: smooth_criminal)🎶
-🎶Black or White(ID: black_or_white) by Michael Jackson🎶
-Enter the favorited song's ID (Or enter 0 to go back): smooth_criminal
-Done! ❌Smooth Criminal(ID: smooth_criminal)❌ has now been removed from your Favorites.
-----------Please select an option----------
-1. Add an Artist ➕🧑‍🎤
-2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
-5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
-Enter 0 to Exit 🚀
->
-```
-
-```9. List all Favorited songs 📄```
-
-Option 9 will list all of the user's most up to date Favorited songs.:
-
-```
-> 9
----------❤️Your Favorited Songs❤️---------
-🎶American Idiot(ID: american_idiot)🎶
-🎶Black or White(ID: black_or_white) by Michael Jackson🎶
-----------Please select an option----------
-1. Add an Artist ➕🧑‍🎤
-2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
-5. List all Songs 📄
-6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
-Enter 0 to Exit 🚀
->
-```
 
 ```Enter 0 to Exit 🚀```
 
@@ -340,9 +227,6 @@ Lastly, if the user would like to leave the application, entering 9 will close t
 4. Remove a Song ➖🎶
 5. List all Songs 📄
 6. List an artist's assigned songs🕺🎶
-7. Add song to your Favorites ➕🎼
-8. Remove Favorited song ➖🎼
-9. List all Favorited songs 📄
 Enter 0 to Exit 🚀
 > 0
 Exiting menu.. Goodbye!

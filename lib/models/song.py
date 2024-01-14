@@ -1,6 +1,6 @@
 import sqlite3
 from lib.models.__init__ import CURSOR, CONN
-from lib.models.artist import Artist
+from models.artist import Artist
 
 class Song:
     all_songs = []
@@ -37,7 +37,8 @@ class Song:
     @classmethod
     def load_all_songs(cls):
         try:
-            CURSOR.execute("SELECT * FROM songs")
+            # CURSOR.execute("SELECT * FROM songs")
+            CURSOR.execute("SELECT songs.id, songs.title, artists.id, artists.name FROM songs LEFT JOIN artists ON songs.artist_id = artists.id")
             rows = CURSOR.fetchall()
 
             cls.all_songs.clear()
@@ -60,6 +61,5 @@ class Song:
     def find_song_by_id(cls, song_id):
         existing_song = next((song for song in cls.all_songs if song.song_id == song_id), None)
         return existing_song
-
 
 Song.create_table()
