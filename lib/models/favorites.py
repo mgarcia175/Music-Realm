@@ -1,48 +1,57 @@
 import sqlite3
 from lib.models.__init__ import CURSOR, CONN
-from models.song import Song
 
 class Favorited_Song:
-    my_favorited_songs = []
+    all_favorites = []
 
-    def __init__(self, song):
-        self.song = song
-        Favorited_Song.my_favorited_songs.append(self)
-
-    def __str__(self):
-        if self.song and self.song.artist:
-            return f"{self.song.title}(ID: {self.song.song_id}) by {self.song.artist.name}"
-        elif self.song:
-            return f"{self.song.title}(ID: {self.song.song_id})"
-        else:
-            return "Invalid Favorited Song"
+    def __init__(self, user_id, song_id):
+        self.user_id = user_id
+        self.song_id = song_id
 
     @classmethod
-    def add_favorited_song_to_db(cls, song_id):
-        CURSOR.execute("INSERT INTO favorited_songs (song_id) VALUES (?)", (song_id,))
+    def create_table(cls):
+        sql = """
+            CREATE TABLE IF NOT EXISTS favorites (
+                user_id INTEGER,
+                song_id INTEGER,
+                PRIMARY KEY (user_id, song_id),
+                FOREIGN KEY (user_id) REFERENCES users (id),
+                FOREIGN KEY (song_id) REFERENCES songs (id)
+            )
+        """
+        CURSOR.execute(sql)
         CONN.commit()
 
-    @classmethod 
-    def load_all_favorited_songs(cls):
-        CURSOR.execute("SELECT * FROM favorited_songs")
-        rows = CURSOR.fetchall()
-
-        for row in rows:
-            song_id = row[0]
-            song = Song.find_song_by_id(song_id)
-
-            favorited_song = cls(song)
-            cls.my_favorited_songs.append(favorited_song)
-    
- 
-    @staticmethod
-    def remove_favorited_song_from_db(song_id):
-        CURSOR.execute("DELETE FROM favorites WHERE song_id = ?", (song_id,))
+    @classmethod
+    def add_favorite(cls, user_id, song_id):
+        CURSOR.execute("INSERT INTO favorites (user_id, song_id) VALUES (?, ?)", (user_id, song_id))
         CONN.commit()
 
-    @staticmethod
-    def find_favorited_song_by_id(song_id):
-        for favorited_song in Favorited_Song.my_favorited_songs:
-            if favorited_song.song.song_id == song_id:
-                return favorited_song
-        return None
+    @classmethod
+    def remove_favorite(cls, user_id, song_id):
+        CURSOR.execute("DELETE FROM favorites WHERE user_id = ? AND song_id = ?", (user_id, song_id))
+        CONN.commit()
+
+    @classmethod
+    def load_all_favorites(cls):
+        try:
+            CURSOR.execute("SELECT * FROM favorites")
+            rows = CURSOR.fetchall()
+
+            cls.all_favorites.clear()
+
+            for row in rows:
+                user_id, song_id = row[0], row[1]
+                favorite = cls(user_id, song_id)
+                cls.all_favorites.append(favorite)
+
+        except Exception as e:
+            raise e
+
+    @classmethod
+    def find_favorite(cls, user_id, song_id):
+        existing_favorite = next((fav for fav in cls.all_favorites if fav.user_id == user_id and fav.song_id == song_id), None)
+        return existing_favorite
+
+
+Favorited_Song.create_table()
