@@ -14,12 +14,12 @@ def add_artist():
 
     if artist_name == '0':
         return
-    
+
     existing_artist= next((artist for artist in Artist.all_artists if artist.name.lower() == artist_name.lower()), None)
 
     if existing_artist:
         print(f"🛑Wait a gosh darn second! {existing_artist} already exists!🛑")
-    
+
     else:
         Artist(name=artist_name)
         print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
@@ -69,18 +69,14 @@ def add_song():
     if artist_id == "0":
         return
 
-    # Check if the provided artist ID is valid
-    # artist = find_artist_by_input(artist_id)
     artist = Artist.find_artist_by_id(artist_id)
 
     if not artist:
         print("Hmm.. It doesn't seem like there exists an artist with that ID. Sorry.🙁 ")
         return
 
-    # Ask the user for the song title
     song_title = input('Enter the song title: ')
 
-    # Create a new instance of a Song
     newly_added_song = Song(song_id=song_title.lower().replace(" ", "_"), title=song_title, artist=artist)
 
     print(f"Song Title: {newly_added_song.title} | Assigned Artist: {newly_added_song.artist.name if newly_added_song.artist else None}")
@@ -88,10 +84,10 @@ def add_song():
     # Add the song to the matching artist
     artist.songs.append(newly_added_song)
     
-    # Save the song to the database
     newly_added_song.save_to_db()
     
     print(f"✅Nicely done! Song added: 🎶{newly_added_song}🎶 and assigned to 🎤{artist}🎤!✅")
+
 def remove_song():
     print("---------❌Removing Song❌---------")
 
@@ -108,16 +104,15 @@ def remove_song():
     if deleted_song_id == 0:
         return
 
-    # Find the song by ID
-    removed_song = find_song_by_id(deleted_song_id)
+    # Find song by ID
+    removed_song = Song.find_song_by_id(deleted_song_id)
 
     if removed_song:
         try:
-            # Remove the song from the list of songs in memory if it exists
+
             if removed_song in Song.all_songs:
                 Song.all_songs.remove(removed_song)
 
-            # Remove the song from the database
             Song.remove_song_from_db(removed_song.song_id)
 
             artist_name = removed_song.artist.name if removed_song.artist else 'Not Assigned'
@@ -143,7 +138,26 @@ def list_all_songs():
             return
     except ValueError as ve:
         print(f"Error: {ve}")
+        
+def find_song_by_id_helper(song_id):
+    try:
+        song_id = int(song_id)
+        found_song = Song.find_song_by_id(song_id)
 
+        if found_song:
+            return {
+                "title": found_song.title,
+                "song_id": found_song.song_id,
+                "artist_name": found_song.artist.name if found_song.artist else 'Not Assigned'
+                # Add more details as needed
+            }
+        else:
+            return None
+    except ValueError:
+        return None
+    except Exception as e:
+        raise e
+    
 def find_song_by_id():
     try:
         song_id = input("Enter the ID of the song: ")
@@ -189,6 +203,5 @@ def view_song_details():
     if found_song:
         print(f"Details for the song {found_song.title} (ID: {found_song.song_id}):")
         print(f"Artist: {found_song.artist.name if found_song.artist else 'Not Assigned'}")
-        # Add more details as needed
     else:
         print(f"Uh oh. Looks like we don't have a song with that ID 😢")

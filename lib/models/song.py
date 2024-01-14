@@ -71,13 +71,10 @@ class Song:
                 song_id, title, artist_id = row[0], row[1], row[2]
                 artist = Artist.find_artist_by_id(artist_id)
                 song = cls(title, artist, song_id)
-                print(f"Nice! Found it! 🎶{song.title} (ID: {song.song_id})🎶")
                 return song
             else:
-                print(f"Uh oh.. Looks like we don't have a song with that ID 😢")
                 return None
         except ValueError:
-            print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
             return None
         except Exception as e:
             raise e
