@@ -225,20 +225,10 @@ Enter 0 to Exit 🚀
 
 ```7. Find an Artist by ID 🔍```
 
-Option 7 will find a specific artist you are looking for. Once the ID is provided, the Artist's full name will be provided.
+Option 7 will find a specific artist you are looking for. Once the ID is provided, the Artist's full name will be provided. Along with this, the command is meant to also be an avenue for the user to update the Artist. If the user needs to correct a typo, they will be prompted to enter the Artist name again for updating.
 
 ```
 >>> 7
----------🌟🌟Listing songs for an artist🌟🌟---------
----------🌟Available Artists🌟---------
-🥁🎹🎸Michael Jackson (ID: 35)🎸🎹🥁
-Enter the artist's ID: 35
-Songs by 🌟Michael Jackson🌟
-🎶Billy Jean (ID: 16)🎶
-🎶Bad (ID: 17)🎶
-🎶Black or White (ID: 18)🎶
-🎶Thriller (ID: 19)🎶
-🎶Beat It (ID: 20)🎶
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
 2. List all Artists 📄
@@ -249,12 +239,20 @@ Songs by 🌟Michael Jackson🌟
 7. Find an Artist by ID 🔍
 8. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
+>>> 7
+Enter the ID of the artist: 20
+----------🎤Found Artist🎤----------
+Details:
+Artist Name: 🌟Micahall Jackson (ID: 20)🌟
+Would you like to update the artist's name? (Y/N?): y
+Enter the updated artist name: Michael Jackson
+✅ Nice! You have successfully updated the Artist name to 'Michael Jackson'! ✅
 >>>
 ```
 
 ```8. Find a Song by ID 🔍 ```
 
-Option 8 will populate the information of a given song, once it's id is provided!
+Option 8 will populate the of a song's information such as it's tile, id, and assigned artist (if one is assigned), once it's id is provided! Along with this, once the song information has populated, the user will be givne the option to update the song's title, if so desired.
 ```
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
@@ -266,13 +264,17 @@ Option 8 will populate the information of a given song, once it's id is provided
 7. Find an Artist by ID 🔍
 8. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
->>> 7
-Enter the ID of the song: 8
-Nice! Found it! 🎶Billy Jean (ID: 8)🎶
-Details for the song Billy Jean (ID: 8):
-Artist: 🎶🧑‍🎤Michael Jackson🧑‍🎤🎶
+>>> 8
+Enter the ID of the song: 20
+----------🎶Found Song🎶----------
+Details:
+- Title: Smoothhh cRiminal
+- Song ID: 20
+- Artist: Michael Jackson
+Would you like to udpate the song's title? (Y/N?): y
+Enter the updated Title: Smooth Criminal
+✅ Nice! You have successfully updated your Song to 'Smooth Criminal'! ✅
 ```
-
 
 ```Enter 0 to Exit 🚀```
 

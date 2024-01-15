@@ -77,7 +77,7 @@ class Artist:
             artist_id = int(artist_id)
             CURSOR.execute("UPDATE artists SET name = ? WHERE id = ?", (new_artist_name, artist_id))
             CONN.commit()
-            print("✅ Nice! You have successfully updated the Artist! ✅")
+            print(f"✅ Nice! You have successfully updated the Artist name to '{new_artist_name}'! ✅")
         except ValueError:
             print(f"Uh oh. Invalid Artist ID: {artist_id}. 😢")
         except Exception as e:
