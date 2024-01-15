@@ -85,7 +85,7 @@ class Song:
             song_id = int(song_id)
             CURSOR.execute("UPDATE songs SET title = ? WHERE id = ?", (new_title, song_id))
             CONN.commit()
-            print("✅ Nice! You have successfully updated your song! ✅")
+            print("✅ Nice! You have successfully updated your Song! ✅")
         except ValueError:
             print(f"Uh oh. Invalid song ID: {song_id}. 😢")
         except Exception as e:

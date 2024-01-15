@@ -24,6 +24,11 @@ def add_artist():
         Artist(name=artist_name)
         print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
 
+
+
+
+
+
 def find_artist_by_input():
     try:
         artist_id = int(input("Enter the ID of the artist: "))
@@ -32,14 +37,29 @@ def find_artist_by_input():
         if artist:
             print("----------🎤Found Artist🎤----------")
             print(f"Details: \nArtist Name: 🌟{artist.name} (ID: {artist.artist_id})🌟")
-            # print(f"Nice! Found them! 🌟{artist.name} (ID: {artist.artist_id})🌟")
-            return artist
+        
+            update_artist_name = input("Would you like to update the artist's name? (Y/N?): ")
+
+            if update_artist_name == 'y':
+                new_artist_name = input("Enter the updated artist name: ")
+                Artist.update_artist_name(artist_id, new_artist_name)
+            elif update_artist_name == 'n':
+                return
+
         else:
             print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
-            return None
     except ValueError:
         print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
         return None
+
+
+
+
+
+
+
+
+
 
 def list_all_artists():
     try:
