@@ -25,19 +25,21 @@ def add_artist():
         print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
 
 def find_artist_by_input():
-    try:
-        artist_id = int(input("Enter the ID of the artist: "))
-        artist = Artist.find_artist_by_id(artist_id)
+    user_input = input("Enter the ID of the artist: ")
 
-        if artist:
-            print(f"Nice! Found them! 🌟{artist.name} (ID: {artist.artist_id})🌟")
-            return artist
-        else:
-            print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
-            return None
-    except ValueError:
-        print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
+    if not user_input.isdigit():
+        raise ValueError("🛑Err! Stop right there! The input is not a number.🛑")
+
+    artist_id = int(user_input)
+    artist = Artist.find_artist_by_id(artist_id)
+
+    if artist:
+        print(f"Nice! Found them! 🌟{artist.name} (ID: {artist.artist_id})🌟")
+        return artist
+    else:
+        print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
         return None
+
 
 def list_all_artists():
     try:
@@ -138,7 +140,7 @@ def list_all_songs():
             return
     except ValueError as ve:
         print(f"Error: {ve}")
-        
+
 def find_song_by_id_helper(song_id):
     try:
         song_id = int(song_id)
@@ -157,7 +159,7 @@ def find_song_by_id_helper(song_id):
         return None
     except Exception as e:
         raise e
-    
+
 def find_song_by_id():
     try:
         song_id = input("Enter the ID of the song: ")
