@@ -15,12 +15,15 @@ def add_artist():
     if artist_name == '0':
         return
 
-    for artist in Artist.all_artists:
-        if artist.name.lower() == artist_name.lower():
-            print(f"🛑Wait a gosh darn second! '{artist_name}' already exists!🛑")
-        else:
-            Artist(name=artist_name)
-            print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
+    existing_artist = next((artist for artist in Artist.all_artists if artist.name.lower() == artist_name.lower()), None)
+
+    if existing_artist:
+        print(f"🛑Wait a gosh darn second! '{artist_name}' already exists!🛑")
+    else:
+        Artist.add_artist_to_db(artist_name)
+        Artist.load_all_artists()  # Reload all artists after database update
+        print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
+
 
 def find_artist_by_input():
     try:
@@ -50,7 +53,7 @@ def remove_artist():
 
     list_all_artists()
 
-    deleted_artist_id = input("Please enter the Artist's song to remove (Or 0 to go back): ")
+    deleted_artist_id = input("Please enter the Artist's ID to remove (Or 0 to go back): ")
 
     try:
         deleted_artist_id = int(deleted_artist_id)

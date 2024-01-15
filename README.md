@@ -53,8 +53,8 @@ Take a look at the directory structure:
 
 ***Music Realm Creat*** is a fun and interactive program that:
 
-+ Allows the user to add all of their known songs
-+ Allows the user to add all of their known artists
++ Allows the user to add, list, and remove their known songs
++ Allows the user to add, list, and remove their known artists
 + Allows the user to customize these submission by removing, adding and assigning their songs to the song's corresponding artist
 
 Let's go through it!
@@ -70,11 +70,13 @@ Once we run `python lib/cli.py`, we are given a menu, with 10 options to choose 
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
 2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
+3. Remove an Artist ➖🎶
+4. Add a Song ➕🎶
 5. List all Songs 📄
-6. Find an Artist by ID 🔍
-7. Find a Song by ID 🔍
+6. Remove a Song ➖🎶
+7. Find an Artist by ID 🔍
+8. Find a Song by ID 🔍
+
 Enter 0 to Exit 🚀
 ```
 These options and actions derive their logic and functionality from our `lib/helpers.py file`. We will visit them now.
@@ -92,11 +94,13 @@ Artist Name (Or enter 0 to go back): Michael Jackson
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
 2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
+3. Remove an Artist ➖🎶
+4. Add a Song ➕🎶
 5. List all Songs 📄
-6. Find an Artist by ID 🔍
-7. Find a Song by ID 🔍
+6. Remove a Song ➖🎶
+7. Find an Artist by ID 🔍
+8. Find a Song by ID 🔍
+
 Enter 0 to Exit 🚀
 ```
 
@@ -107,24 +111,51 @@ Option 2 will list all of the created artists for the user. However, remember th
 > 2
 ---------🌟Available Artists🌟---------
 🥁🎹🎸Michael Jackson (ID: 35)🎸🎹🥁
+🥁🎹🎸Greenday (ID: 36)🎸🎹🥁
+🥁🎹🎸Miley Cyrus (ID: 37)🎸🎹🥁
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
 2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
+3. Remove an Artist ➖🎶
+4. Add a Song ➕🎶
 5. List all Songs 📄
-6. Find an Artist by ID 🔍
-7. Find a Song by ID 🔍
+6. Remove a Song ➖🎶
+7. Find an Artist by ID 🔍
+8. Find a Song by ID 🔍
+
 Enter 0 to Exit 🚀
 >>>
 ```
 
-```3. Add a Song ➕🎶```
+```3. Remove an Artist```
 
-Option 3 will allow the user to add a song. The user will be prompted to enter the name od the desired song. Once this is done, the user will also be given the ability to assign the song to an artist, if so desired, by entering the artist's ID. If not, simply enter 'NA'.:
+Option 4 will allow the user to remove one of their submitted Artists. For convenience, the user will be informed on all of the available Artists, along with their IDs. The user will then be prompted to enter the Artist's ID. Once this is done, the user will be informed that the Artist has been removed.:
 
 ```
+----------Please select an option----------
+1. Add an Artist ➕🧑‍🎤
+2. List all Artists 📄
+3. Remove an Artist ➖🎶
+4. Add a Song ➕🎶
+5. List all Songs 📄
+6. Remove a Song ➖🎶
+7. Find an Artist by ID 🔍
+8. Find a Song by ID 🔍
+Enter 0 to Exit 🚀
 >>> 3
+---------❌Removing Artist❌---------
+---------🌟Available Artists🌟---------
+🥁🎹🎸Michael Jackson (ID: 15)🎸🎹🥁
+Please enter the Artist's ID to remove (Or 0 to go back): 15
+Done. ❌Michael Jackson has now been removed.❌
+```
+
+```4. Add a Song ➕🎶```
+
+Option 4 will allow the user to add a song. The user will be prompted to enter the name od the desired song. Once this is done, the user will also be given the ability to assign the song to an artist, if so desired, by entering the artist's ID. If not, simply enter 'NA'.:
+
+```
+>>> 4
 ---------🎶Adding song🎶---------
 Enter song title (Or enter 0 to go back): Billy Jean
 ---------🌟Available Artists🌟---------
@@ -135,34 +166,12 @@ Song Title:Billy Jean, Assigned Artist: Michael Jackson
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
 2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
+3. Remove an Artist ➖🎶
+4. Add a Song ➕🎶
 5. List all Songs 📄
-6. Find an Artist by ID 🔍
-7. Find a Song by ID 🔍
-Enter 0 to Exit 🚀
->>>
-```
-
-```4. Remove a Song ➖🎶```
-
-Option 4 will prompt the user to enter a song's ID, for removal. Please keep in mind that this cannot be undone, once processed. If the song is desired again, it will have to be added again, manually.:
-
-```
->>> 4
----------❌Removing Song❌---------
----------🎹Available Songs🎹---------
-🎶Billy Jean (ID:billy_jean🎶)
-Please enter the song's ID to remove (Or enter 0 to go back): billy_jean
-Done. ❌Billy Jean❌ has now been removed.
-----------Please select an option----------
-1. Add an Artist ➕🧑‍🎤
-2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
-5. List all Songs 📄
-6. Find an Artist by ID 🔍
-7. Find a Song by ID 🔍
+6. Remove a Song ➖🎶
+7. Find an Artist by ID 🔍
+8. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
 >>>
 ```
@@ -174,61 +183,88 @@ Option 5 will list all of the available songs. Similar to the songs, remember th
 ```
 >>> 5
 ---------🎹Available Songs🎹---------
-🎶American Idiot (ID:american_idiot🎶)
-🎶Smooth Criminal (ID:smooth_criminal🎶)
-🎶Party in the USA (ID:party_in_the_usa🎶)
+🎶American Idiot (ID: 12🎶)
+🎶Smooth Criminal (ID: 13🎶)
+🎶Party in the USA (ID: 14🎶)
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
 2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
+3. Remove an Artist ➖🎶
+4. Add a Song ➕🎶
 5. List all Songs 📄
-6. Find an Artist by ID 🔍
-7. Find a Song by ID 🔍
+6. Remove a Song ➖🎶
+7. Find an Artist by ID 🔍
+8. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
 >>>
 ```
 
-```6. Find an Artist by ID 🔍```
+```6. Remove a Song ➖🎶```
 
-Option 6 will list an specific artist you are looking for, along with it's id.
+Option 6 will prompt the user to enter a song's ID, for removal. Please keep in mind that this cannot be undone, once processed. If the song is desired again, it will have to be added again, manually.:
 
 ```
 >>> 6
+---------❌Removing Song❌---------
+---------🎹Available Songs🎹---------
+🎶Billy Jean (ID: 16🎶)
+Please enter the song's ID to remove (Or enter 0 to go back): 6
+Done. ❌Billy Jean❌ has now been removed.
+----------Please select an option----------
+1. Add an Artist ➕🧑‍🎤
+2. List all Artists 📄
+3. Remove an Artist ➖🎶
+4. Add a Song ➕🎶
+5. List all Songs 📄
+6. Remove a Song ➖🎶
+7. Find an Artist by ID 🔍
+8. Find a Song by ID 🔍
+Enter 0 to Exit 🚀
+>>>
+```
+
+```7. Find an Artist by ID 🔍```
+
+Option 7 will find a specific artist you are looking for. Once the ID is provided, the Artist's full name will be provided.
+
+```
+>>> 7
 ---------🌟🌟Listing songs for an artist🌟🌟---------
 ---------🌟Available Artists🌟---------
 🥁🎹🎸Michael Jackson (ID: 35)🎸🎹🥁
 Enter the artist's ID: 35
 Songs by 🌟Michael Jackson🌟
-🎶Billy Jean (ID: billy_jean)🎶
-🎶Bad (ID: bad)🎶
-🎶Black or White (ID: black_or_white)🎶
-🎶Thriller (ID: thriller)🎶
-🎶Beat It (ID: beat_it)🎶
+🎶Billy Jean (ID: 16)🎶
+🎶Bad (ID: 17)🎶
+🎶Black or White (ID: 18)🎶
+🎶Thriller (ID: 19)🎶
+🎶Beat It (ID: 20)🎶
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
 2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
+3. Remove an Artist ➖🎶
+4. Add a Song ➕🎶
 5. List all Songs 📄
-6. Find an Artist by ID 🔍
-7. Find a Song by ID 🔍
+6. Remove a Song ➖🎶
+7. Find an Artist by ID 🔍
+8. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
 >>>
 ```
 
-```7. Find a Song by ID 🔍 ```
+```8. Find a Song by ID 🔍 ```
 
-Option 7 will populate the information of a given song, once it's id is provided!
+Option 8 will populate the information of a given song, once it's id is provided!
 ```
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
 2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
+3. Remove an Artist ➖🎶
+4. Add a Song ➕🎶
 5. List all Songs 📄
-6. Find an Artist by ID 🔍
-7. Find a Song by ID 🔍
+6. Remove a Song ➖🎶
+7. Find an Artist by ID 🔍
+8. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
 >>> 7
 Enter the ID of the song: 8
@@ -246,11 +282,12 @@ Lastly, if the user would like to leave the application, entering 9 will close t
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
 2. List all Artists 📄
-3. Add a Song ➕🎶
-4. Remove a Song ➖🎶
+3. Remove an Artist ➖🎶
+4. Add a Song ➕🎶
 5. List all Songs 📄
-6. Find an Artist by ID 🔍
-7. Find a Song by ID 🔍
+6. Remove a Song ➖🎶
+7. Find an Artist by ID 🔍
+8. Find a Song by ID 🔍
 Enter 0 to Exit 🚀
 >>> 0
 Exiting menu.. Goodbye!

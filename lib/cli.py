@@ -34,15 +34,15 @@ def main():
             elif choice == "4":
                 add_song()
             elif choice == "5":
-                remove_song()
-            elif choice == "6":
                 list_all_songs()
+            elif choice == "6":
+                remove_song()
             elif choice == "7":
                 find_artist_by_input()
             elif choice == "8":
                 find_song_by_id()
             else:
-                print("Invalid choice. Please enter a number between 0 and 12.")
+                print("Invalid choice. Please enter a number between 0 and 8.")
         except Exception as ex:
             print(f"🛑Whoaaaa! Unexpected error!🛑: {ex}")
 
@@ -52,8 +52,8 @@ def menu():
     print("2. List all Artists 📄")
     print("3. Remove an Artist ➖🎶")
     print("4. Add a Song ➕🎶")
-    print("5. Remove a Song ➖🎶")
-    print("6. List all Songs 📄")
+    print("5. List all Songs 📄")
+    print("6. Remove a Song ➖🎶")
     print("7. Find an Artist by ID 🔍")
     print("8. Find a Song by ID 🔍")
 

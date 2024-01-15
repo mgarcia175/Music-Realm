@@ -32,9 +32,9 @@ class Artist:
     def add_song(self, song):
         self.songs.append(song)
 
-    def add_artist_to_db(self):
-        CURSOR.execute("INSERT INTO artists (name) VALUES (?)", (self.name,))
-        self.artist_id = CURSOR.lastrowid
+    @classmethod
+    def add_artist_to_db(cls, name):
+        CURSOR.execute("INSERT INTO artists (name) VALUES (?)", (name,))
         CONN.commit()
 
     @classmethod
