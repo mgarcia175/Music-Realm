@@ -87,7 +87,7 @@ def add_song():
     
     newly_added_song.save_to_db()
     
-    print(f"✅Nicely done! Song added: 🎶{newly_added_song}🎶 and assigned to 🎤{artist}🎤!✅")
+    print(f"✅Nicely done! Successfully added 🎶{newly_added_song}🎶 by 🎤{artist}🎤!✅")
 
 def remove_song():
     print("---------❌Removing Song❌---------")
@@ -163,8 +163,17 @@ def find_song_by_id():
             print("----------🎶Found Song🎶----------")
             print(f"Details: \n- Title: {found_song.title} \n- Song ID: {found_song.song_id}")
             print(f"- Artist: {found_song.artist.name if found_song.artist else 'Not Assigned'}")
+
+            update_title = input("Would you like to udpate the song's title? (Y/N?): ").lower()
+
+            if update_title == 'y':
+                new_title = input("Enter the updated Title: ")
+                Song.update_song_title(song_id, new_title)
+            elif update_title == 'n':
+                return
+
         else:
-            print(f"Uh oh. Looks like we don't have a song with that ID 😢")
+            print(f"Uh oh. Looks like we don't have a song with that ID.. 😢")
 
     except ValueError:
         print("Invalid input. Please enter a valid Song ID.")

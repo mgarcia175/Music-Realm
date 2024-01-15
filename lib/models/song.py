@@ -79,4 +79,17 @@ class Song:
         except Exception as e:
             raise e
 
+    @classmethod
+    def update_song_title(cls, song_id, new_title):
+        try:
+            song_id = int(song_id)
+            CURSOR.execute("UPDATE songs SET title = ? WHERE id = ?", (new_title, song_id))
+            CONN.commit()
+            print("✅ Nice! You have successfully updated your song! ✅")
+        except ValueError:
+            print(f"Uh oh. Invalid song ID: {song_id}. 😢")
+        except Exception as e:
+            print(f"Error occurred: {e}")
+
+
 Song.create_table()
