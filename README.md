@@ -56,6 +56,7 @@ Take a look at the directory structure:
 + Allows the user to add, list, and remove their known songs
 + Allows the user to add, list, and remove their known artists
 + Allows the user to customize these submission by removing, adding and assigning their songs to the song's corresponding artist
++ Allows the user to update the song's/artist's information, if needed
 
 Let's go through it!
 
