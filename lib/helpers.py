@@ -40,12 +40,11 @@ def find_artist_by_input():
         print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
         return None
 
-
 def list_all_artists():
     try:
         Artist.load_all_artists()
 
-        print(f"---------🌟Available Artists🌟---------")
+        print("---------🌟Available Artists🌟---------")
 
         artists_found = False
 
@@ -66,9 +65,13 @@ def add_song():
 
     # Ask the user for the ID of the artist
     list_all_artists()
-    artist_id = input('Enter the ID of the artist to attach the song to (Enter 0 to go back): ')
+    
+    try:
+        artist_id = int(input('Enter the ID of the artist to attach the song to (Enter 0 to go back): '))
+    except ValueError:
+        raise ValueError("🛑Err! Stop right there! The entered ID is not a number.🛑")
 
-    if artist_id == "0":
+    if artist_id == 0:
         return
 
     artist = Artist.find_artist_by_id(artist_id)
@@ -89,6 +92,7 @@ def add_song():
     newly_added_song.save_to_db()
     
     print(f"✅Nicely done! Song added: 🎶{newly_added_song}🎶 and assigned to 🎤{artist}🎤!✅")
+
 
 def remove_song():
     print("---------❌Removing Song❌---------")
