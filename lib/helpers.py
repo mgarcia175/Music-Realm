@@ -65,7 +65,7 @@ def add_song():
 
     # Ask the user for the ID of the artist
     list_all_artists()
-    
+
     try:
         artist_id = int(input('Enter the ID of the artist to attach the song to (Enter 0 to go back): '))
     except ValueError:
@@ -77,21 +77,23 @@ def add_song():
     artist = Artist.find_artist_by_id(artist_id)
 
     if not artist:
-        print("Hmm.. It doesn't seem like there exists an artist with that ID. Sorry.🙁 ")
+        print("Hmm.. It doesn't seem like we have an artist with that ID. Sorry.🙁 ")
         return
 
     song_title = input('Enter the song title: ')
 
-    newly_added_song = Song(song_id=song_title.lower().replace(" ", "_"), title=song_title, artist=artist)
+    newly_added_song = Song(song_id=artist.artist_id, title=song_title, artist=artist)
 
     print(f"Song Title: {newly_added_song.title} | Assigned Artist: {newly_added_song.artist.name if newly_added_song.artist else None}")
 
-    # Add the song to the matching artist
-    artist.songs.append(newly_added_song)
-    
+    # Wll assign song to the artist - Artist method
+    artist.add_song(newly_added_song)
+
+    # Will add song to songs model - Song method
     newly_added_song.save_to_db()
-    
+
     print(f"✅Nicely done! Song added: 🎶{newly_added_song}🎶 and assigned to 🎤{artist}🎤!✅")
+
 
 
 def remove_song():
@@ -115,7 +117,6 @@ def remove_song():
 
     if removed_song:
         try:
-
             if removed_song in Song.all_songs:
                 Song.all_songs.remove(removed_song)
 
@@ -132,12 +133,9 @@ def list_all_songs():
     try:
         Song.load_all_songs()
         print("---------🎹Available Songs🎹---------")
-
-        found_songs = False
         
         for song in Song.all_songs:
             print(f"🎶{song.title} | ID: {song.song_id}🎶")
-            found_songs = True
 
         if not Song.all_songs:
             print("Oh no! There are currently no existing songs.. 😢")
@@ -155,7 +153,6 @@ def find_song_by_id_helper(song_id):
                 "title": found_song.title,
                 "song_id": found_song.song_id,
                 "artist_name": found_song.artist.name if found_song.artist else 'Not Assigned'
-                # Add more details as needed
             }
         else:
             return None
@@ -170,9 +167,9 @@ def find_song_by_id():
         found_song = Song.find_song_by_id(song_id)
 
         if found_song:
-            print(f"Details for the song {found_song.title} (ID: {found_song.song_id}):")
+            print("----------🎶Found Song🎶----------")
+            print(f"Details: \nTitle: {found_song.title} \nSong ID: {found_song.song_id}:")
             print(f"Artist: {found_song.artist.name if found_song.artist else 'Not Assigned'}")
-            # Add more details as needed
         else:
             print(f"Uh oh. Looks like we don't have a song with that ID 😢")
 
