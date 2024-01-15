@@ -24,11 +24,6 @@ def add_artist():
         Artist(name=artist_name)
         print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
 
-
-
-
-
-
 def find_artist_by_input():
     try:
         artist_id = int(input("Enter the ID of the artist: "))
@@ -51,6 +46,47 @@ def find_artist_by_input():
     except ValueError:
         print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
         return None
+
+
+
+
+
+
+
+
+
+
+def remove_artist():
+    print("---------❌Removing Artist❌---------")
+
+    list_all_artists()
+
+    deleted_artist_id = input("Please enter the Artist's song to remove (Or 0 to go back): ")
+
+    try:
+        deleted_artist_id = int(deleted_artist_id)
+    except ValueError:
+        print("🛑Invalid input. Valid Song ID required.🛑")
+        return
+
+    if deleted_artist_id == 0:
+        return
+
+    removed_artist = Artist.find_artist_by_id(deleted_artist_id)
+
+    if removed_artist:
+        try:
+            if removed_artist in Artist.all_artists:
+                Artist.all_artists.remove(removed_artist)
+
+            Artist.remove_artist_from_db(deleted_artist_id)
+            
+            removed_artist_name = removed_artist.name
+            print(f"Done. ❌{removed_artist_name} has now been removed.❌")
+        except ValueError as ex:
+            print(f"🛑Uh oh! Error occurred while removing!🛑: {ex}")
+    else:
+        print(f"Uh oh. It seems there is no Artist with the ID of {deleted_artist_id}")
 
 
 
@@ -114,7 +150,7 @@ def remove_song():
 
     list_all_songs()
 
-    deleted_song_id = input("Please enter the song's ID to remove (Or enter 0 to go back): ")
+    deleted_song_id = input("Please enter the song's ID to remove (Or 0 to go back): ")
 
     try:
         deleted_song_id = int(deleted_song_id)

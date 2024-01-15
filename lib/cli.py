@@ -9,6 +9,7 @@ from lib.helpers import (
     exit_program,
     add_artist,
     list_all_artists,
+    remove_artist,
     add_song,
     remove_song,
     list_all_songs,
@@ -29,14 +30,16 @@ def main():
             elif choice == "2":
                 list_all_artists()
             elif choice == "3":
-                add_song()
+                remove_artist()
             elif choice == "4":
-                remove_song()
+                add_song()
             elif choice == "5":
-                list_all_songs()
+                remove_song()
             elif choice == "6":
-                find_artist_by_input()
+                list_all_songs()
             elif choice == "7":
+                find_artist_by_input()
+            elif choice == "8":
                 find_song_by_id()
             else:
                 print("Invalid choice. Please enter a number between 0 and 12.")
@@ -47,11 +50,12 @@ def menu():
     print("----------Please select an option----------")
     print("1. Add an Artist ➕🧑‍🎤")
     print("2. List all Artists 📄")
-    print("3. Add a Song ➕🎶")
-    print("4. Remove a Song ➖🎶")
-    print("5. List all Songs 📄")
-    print("6. Find an Artist by ID 🔍")
-    print("7. Find a Song by ID 🔍")
+    print("3. Remove an Artist ➖🎶")
+    print("4. Add a Song ➕🎶")
+    print("5. Remove a Song ➖🎶")
+    print("6. List all Songs 📄")
+    print("7. Find an Artist by ID 🔍")
+    print("8. Find a Song by ID 🔍")
 
     print("Enter 0 to Exit 🚀")
 

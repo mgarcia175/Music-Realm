@@ -71,9 +71,6 @@ class Artist:
         else:
             return None
 
-
-
-
     @classmethod
     def update_artist_name(cls, artist_id, new_artist_name):
         try:
@@ -85,8 +82,5 @@ class Artist:
             print(f"Uh oh. Invalid Artist ID: {artist_id}. 😢")
         except Exception as e:
             print(f"Error occurred: {e}")
-
-
-
 
 Artist.create_table()

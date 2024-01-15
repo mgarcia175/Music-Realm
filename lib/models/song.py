@@ -91,5 +91,4 @@ class Song:
         except Exception as e:
             print(f"Error occurred: {e}")
 
-
 Song.create_table()
