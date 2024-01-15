@@ -25,19 +25,20 @@ def add_artist():
         print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
 
 def find_artist_by_input():
-    user_input = input("Enter the ID of the artist: ")
+    try:
+        artist_id = int(input("Enter the ID of the artist: "))
+        artist = Artist.find_artist_by_id(artist_id)
 
-    if not user_input.isdigit():
-        raise ValueError("🛑Err! Stop right there! The input is not a number.🛑")
-
-    artist_id = int(user_input)
-    artist = Artist.find_artist_by_id(artist_id)
-
-    if artist:
-        print(f"Nice! Found them! 🌟{artist.name} (ID: {artist.artist_id})🌟")
-        return artist
-    else:
-        print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
+        if artist:
+            print("----------🎤Found Artist🎤----------")
+            print(f"Details: \nArtist Name: 🌟{artist.name} (ID: {artist.artist_id})🌟")
+            # print(f"Nice! Found them! 🌟{artist.name} (ID: {artist.artist_id})🌟")
+            return artist
+        else:
+            print(f"Uh oh.. Looks like we don't have an artist with that ID 😢")
+            return None
+    except ValueError:
+        print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
         return None
 
 def list_all_artists():
@@ -65,36 +66,28 @@ def add_song():
 
     # Ask the user for the ID of the artist
     list_all_artists()
+    artist_id = input('Enter the ID of the artist to attach the song to (Enter 0 to go back): ')
 
-    try:
-        artist_id = int(input('Enter the ID of the artist to attach the song to (Enter 0 to go back): '))
-    except ValueError:
-        raise ValueError("🛑Err! Stop right there! The entered ID is not a number.🛑")
-
-    if artist_id == 0:
+    if artist_id == "0":
         return
 
     artist = Artist.find_artist_by_id(artist_id)
 
     if not artist:
-        print("Hmm.. It doesn't seem like we have an artist with that ID. Sorry.🙁 ")
+        print("Hmm.. It doesn't seem like there exists an artist with that ID. Sorry.🙁 ")
         return
 
     song_title = input('Enter the song title: ')
 
-    newly_added_song = Song(song_id=artist.artist_id, title=song_title, artist=artist)
+    newly_added_song = Song(song_id=song_title.lower().replace(" ", "_"), title=song_title, artist=artist)
 
     print(f"Song Title: {newly_added_song.title} | Assigned Artist: {newly_added_song.artist.name if newly_added_song.artist else None}")
 
-    # Wll assign song to the artist - Artist method
-    artist.add_song(newly_added_song)
-
-    # Will add song to songs model - Song method
+    artist.songs.append(newly_added_song)
+    
     newly_added_song.save_to_db()
-
+    
     print(f"✅Nicely done! Song added: 🎶{newly_added_song}🎶 and assigned to 🎤{artist}🎤!✅")
-
-
 
 def remove_song():
     print("---------❌Removing Song❌---------")
@@ -168,8 +161,8 @@ def find_song_by_id():
 
         if found_song:
             print("----------🎶Found Song🎶----------")
-            print(f"Details: \nTitle: {found_song.title} \nSong ID: {found_song.song_id}:")
-            print(f"Artist: {found_song.artist.name if found_song.artist else 'Not Assigned'}")
+            print(f"Details: \n- Title: {found_song.title} \n- Song ID: {found_song.song_id}")
+            print(f"- Artist: {found_song.artist.name if found_song.artist else 'Not Assigned'}")
         else:
             print(f"Uh oh. Looks like we don't have a song with that ID 😢")
 
@@ -177,34 +170,3 @@ def find_song_by_id():
         print("Invalid input. Please enter a valid Song ID.")
     except Exception as e:
         print(f"Error occurred: {e}")
-
-def view_artist_songs():
-    artists = Artist.load_all_artists()
-
-    print("Select an artist:")
-    for i, artist in enumerate(artists, start=1):
-        print(f"{i}. {artist.name}")
-
-    try:
-        artist_index = int(input("Enter the number of the artist: "))
-        selected_artist = artists[artist_index - 1]  # Adjust index since it starts from 1
-        artist_id = selected_artist.artist_id
-
-        print(f"\nSongs for {selected_artist.name}:")
-        # Call the new method to display songs for the selected artist
-        Song.load_songs_for_artist(artist_id)
-    except (ValueError, IndexError):
-        print("Invalid input or artist not found.")
-
-# Example context where you want to find a song by ID
-def view_song_details():
-    song_id = input("Enter the ID of the song: ")
-    
-    # Call the method to find the song by ID
-    found_song = Song.find_song_by_id(song_id)
-
-    if found_song:
-        print(f"Details for the song {found_song.title} (ID: {found_song.song_id}):")
-        print(f"Artist: {found_song.artist.name if found_song.artist else 'Not Assigned'}")
-    else:
-        print(f"Uh oh. Looks like we don't have a song with that ID 😢")

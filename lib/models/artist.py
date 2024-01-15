@@ -13,7 +13,7 @@ class Artist:
             self.add_artist_to_db()
     def __repr__(self):
         return f'<Artist {self.artist_id}: {self.name}>'
-
+    
     @classmethod
     def create_table(cls):
         sql = """
