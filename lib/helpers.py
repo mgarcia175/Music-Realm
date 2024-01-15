@@ -15,14 +15,12 @@ def add_artist():
     if artist_name == '0':
         return
 
-    existing_artist= next((artist for artist in Artist.all_artists if artist.name.lower() == artist_name.lower()), None)
-
-    if existing_artist:
-        print(f"🛑Wait a gosh darn second! {existing_artist} already exists!🛑")
-
-    else:
-        Artist(name=artist_name)
-        print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
+    for artist in Artist.all_artists:
+        if artist.name.lower() == artist_name.lower():
+            print(f"🛑Wait a gosh darn second! '{artist_name}' already exists!🛑")
+        else:
+            Artist(name=artist_name)
+            print(f"✅Nice! 🎤'{artist_name}'🎤 has been successfully added!✅")
 
 def find_artist_by_input():
     try:
@@ -46,15 +44,6 @@ def find_artist_by_input():
     except ValueError:
         print("🛑Err! Stop right there! The inputed ID is not valid.🛑")
         return None
-
-
-
-
-
-
-
-
-
 
 def remove_artist():
     print("---------❌Removing Artist❌---------")
@@ -87,15 +76,6 @@ def remove_artist():
             print(f"🛑Uh oh! Error occurred while removing!🛑: {ex}")
     else:
         print(f"Uh oh. It seems there is no Artist with the ID of {deleted_artist_id}")
-
-
-
-
-
-
-
-
-
 
 def list_all_artists():
     try:
