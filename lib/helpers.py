@@ -157,18 +157,39 @@ def find_artist_by_name():
         artist = Artist.find_by_name(name)
 
         if artist:
-            print(f"Artist found: {artist}")
+            print(f"Artist found:\n 🎤{artist}🎤")
+            
+            # Display artist's songs
+            artist_songs = Artist.artists_songs(artist)
+            if artist_songs:
+                print("----------Artist's songs----------")
+                for song in artist_songs:
+                    print(f"🎶{song}")
+            else:
+                print("No songs found for this artist.")
+
         else:
             print(f"No artist found with the name: {name}")
 
     except Exception as e:
         print(f"Error finding artist by name: {e}")
 
-
-
-
 def find_song_by_title():
-    print()
+    try:
+        title = input("Enter the title of the song to find: ")
+        song = Song.find_by_title(title)
+
+        if song:
+            print(f"Song found: 🎶{song}🎶")
+            if song.artist:
+                print(f"Artist: 🎤{song.artist.name}🎤")
+            else:
+                print("Oh no.. Artist information not available. 😢")
+        else:
+            print(f"Uh oh! No song found with the title: {title} 😢")
+
+    except Exception as e:
+        print(f"Error finding song by title: {e}")
 
 
 
