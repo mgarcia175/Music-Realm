@@ -126,26 +126,44 @@ def list_all_songs():
     except Exception as e:
         print(f"Error listing all songs: {e}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 def remove_a_song():
-    print()
+    try:
+        # Displaying all songs for user to choose
+        songs = Song.get_all()
+        print("---------🎹Available Songs🎹---------")
+        for song in songs:
+            if song:
+                print(f"🎶{song}")
+            else:
+                print("Song with missing or deleted artist")
 
+        title_to_remove = input("Enter the title of the song for removal: ")
 
+        # Finding the song
+        song_to_remove = Song.find_by_title(title_to_remove)
+
+        if song_to_remove:
+            # Deleting
+            song_to_remove.delete()
+            print(f"Done. ❌ '{title_to_remove}' has now been removed.❌")
+        else:
+            print(f"Uh oh. No song found with the title '{title_to_remove}'. 🙁")
+    except Exception as e:
+        print(f"Error removing the song: {e}")
 
 def find_artist_by_name():
-    print()
+    try:
+        name = input("Enter the name of the artist to find: ")
+        artist = Artist.find_by_name(name)
+
+        if artist:
+            print(f"Artist found: {artist}")
+        else:
+            print(f"No artist found with the name: {name}")
+
+    except Exception as e:
+        print(f"Error finding artist by name: {e}")
+
 
 
 
