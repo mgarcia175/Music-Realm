@@ -11,7 +11,7 @@ class Song:
         self.artist = artist
 
     def __repr__(self):
-        return f"<Song {self.id}: {self.title} by {self.artist.name}>"
+        return f"Song {self.id}: {self.title} by {self.artist.name}"
 
     @property
     def title(self):
@@ -86,18 +86,32 @@ class Song:
         CURSOR.execute(sql)
         CONN.commit()
 
+
+
     @classmethod
     def instance_from_db(cls, row):
-        song = cls.all.get(row[0])
-        if song:
-            song.title = row[1]
-            song.artist = Artist.find_by_id(row[2])
-            song.id = row[0]
-        else:
-            artist = Artist.find_by_id(row[2])
-            song = cls(row[1], artist, row[0])
-            cls.all[song.id] = song
-        return song
+        if row:
+            song_id, title, artist_id = row
+            artist = Artist.find_by_id(artist_id)
+            
+            if artist:
+                song = cls.all.get(song_id)
+                
+                if song:
+                    song.title = title
+                    song.artist = artist
+                else:
+                    song = cls(title, artist, song_id)
+                    cls.all[song_id] = song
+                
+                return song
+
+        return None
+
+
+
+
+
 
     @classmethod
     def get_all(cls):
@@ -106,7 +120,25 @@ class Song:
             FROM songs
         """
         rows = CURSOR.execute(sql).fetchall()
-        return [cls.instance_from_db(row) for row in rows]
+
+        # Comment out or remove the following line
+        # print("Raw rows from the database:", rows)
+
+        songs = []
+        for row in rows:
+            try:
+                song = cls.instance_from_db(row)
+                songs.append(song)
+            except Exception as e:
+                print(f"Error creating song instance: {e}")
+
+        return songs
+
+
+
+
+
+
 
     @classmethod
     def find_by_title(cls, title):
