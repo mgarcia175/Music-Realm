@@ -36,6 +36,25 @@ class Artist:
         CURSOR.execute(sql, (self.name, self.id))
         CONN.commit()
 
+    #Is, by default, the getter method
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        if isinstance(name, str) and len(name):
+            self._name = name
+        else:
+            raise ValueError(
+                "Name must be a non-empty string"
+            )
+
+
+
+
+
+
     def delete(self):
         #DELETES table ROW
         sql = """
@@ -123,4 +142,23 @@ class Artist:
         """
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
+
+    #Handles the artist's songs
+    @classmethod
+    def artists_songs(cls, artist):
+        from models.song import Song
+
+        sql = """
+            SELECT * FROM songs
+            WHERE artist_id = ?
+        """
+        CURSOR.execute(sql, (artist.id,))
+
+        rows = CURSOR.fetchall()
+        return [
+            Song.instance_from_db(row) for row in rows
+        ]
+    #Handles the artist's songs
+
+
 

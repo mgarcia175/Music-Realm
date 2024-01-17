@@ -2,6 +2,7 @@
 
 from models.__init__ import CONN, CURSOR
 from models.artist import Artist
+from models.song import Song
 
 import ipdb
 
@@ -9,30 +10,19 @@ import ipdb
 Artist.drop_table()
 Artist.create_table()
 
-# artistMichael = Artist.create("Michael Jackson")
-# print(artistMichael)
-
-# rock_artist = Artist.create("Greenday")
-# print(rock_artist)
-
-
-# artistMichael.name = "MJ"
-# rock_artist.name = "GD"
-# artistMichael.update()
-# rock_artist.update()
-
-# print(artistMichael, rock_artist)
-
-
-# print("Delete artistMichael and rock_artist")
-# artistMichael.delete()
-# rock_artist.delete()
-# print(artistMichael, rock_artist)
+Song.drop_table()
+Song.create_table()
 
 
 
-Artist.create("Michael Jackson")
-Artist.create("Queen")
+# Create artists
+michael_jackson = Artist.create("Michael Jackson")
+greenday = Artist.create("Green Day")
+
+# Create songs for artists
+smooth_criminal = Song.create("Smooth Criminal", michael_jackson)
+boulevard_of_broken_dreams = Song.create("Boulevard of Broken Dreams", greenday)
+
 
 
 
