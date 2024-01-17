@@ -10,8 +10,8 @@ class Song:
         self.title = title
         self.artist = artist
 
-    def __repr__(self):
-        return f"Song {self.id}: {self.title} by {self.artist.name}"
+    # def __repr__(self):
+    #     return f"Song {self.id}: {self.title} by {self.artist.name}"
 
     @property
     def title(self):
@@ -108,11 +108,6 @@ class Song:
 
         return None
 
-
-
-
-
-
     @classmethod
     def get_all(cls):
         sql = """
@@ -133,12 +128,6 @@ class Song:
                 print(f"Error creating song instance: {e}")
 
         return songs
-
-
-
-
-
-
 
     @classmethod
     def find_by_title(cls, title):

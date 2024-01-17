@@ -9,8 +9,8 @@ class Artist:
         self.id = id
         self.name = name
 
-    def __repr__(self):
-        return f"Artist {self.id}: {self.name}"
+    # def __repr__(self):
+    #     return f"Artist {self.id}: {self.name}"
 
     def save(self):
         sql = """

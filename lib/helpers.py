@@ -21,7 +21,6 @@ def add_an_artists():
     except Exception as ex:
         print(f"Error adding artist: {ex}")
 
-
 def list_all_artists():
     print("---------🌟Available Artists🌟---------")
 
@@ -120,9 +119,9 @@ def list_all_songs():
         print("List of all songs:")
         for song in songs:
             if song:
-                print(f"🎶{song}")
+                print(f"🎶{song.title}")
             else:
-                print("Song with missing or deleted artist")
+                print("Song with missing or deleted artist:")
     except Exception as e:
         print(f"Error listing all songs: {e}")
 
@@ -157,14 +156,14 @@ def find_artist_by_name():
         artist = Artist.find_by_name(name)
 
         if artist:
-            print(f"Artist found:\n 🎤{artist}🎤")
+            print(f"Artist found:\n 🎤{artist.name}🎤")
             
             # Display artist's songs
             artist_songs = Artist.artists_songs(artist)
             if artist_songs:
                 print("----------Artist's songs----------")
                 for song in artist_songs:
-                    print(f"🎶{song}")
+                    print(f"🎶{song.title}")
             else:
                 print("No songs found for this artist.")
 
@@ -180,7 +179,7 @@ def find_song_by_title():
         song = Song.find_by_title(title)
 
         if song:
-            print(f"Song found: 🎶{song}🎶")
+            print(f"Song found: 🎶{song.title}🎶")
             if song.artist:
                 print(f"Artist: 🎤{song.artist.name}🎤")
             else:
@@ -190,74 +189,3 @@ def find_song_by_title():
 
     except Exception as e:
         print(f"Error finding song by title: {e}")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def list_all_artists():
-#     try:
-#         Artist.load_all_artists()
-
-#         print("---------🌟Available Artists🌟---------")
-
-#         artists_found = False
-
-#         for artist in Artist.all_artists:
-#             print(f"🥁🎹🎸{artist.name} (ID: {artist.artist_id})🎸🎹🥁")
-#             artists_found = True
-
-#         if not artists_found:
-#             print("Oh no! There are currently no existing artists.. 😢")
-
-#     except ValueError as ve:
-#         print(f"Error: {ve}")
-
-
-# def list_all_songs():
-#     try:
-#         Song.load_all_songs()
-#         print("---------🎹Available Songs🎹---------")
-
-#         for song in Song.all_songs:
-#             print(f"🎶{song.title} | ID: {song.song_id}🎶")
-
-#         if not Song.all_songs:
-#             print("Oh no! There are currently no existing songs.. 😢")
-#             return
-#     except ValueError as ve:
-#         print(f"Error: {ve}")
