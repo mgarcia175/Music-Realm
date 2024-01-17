@@ -75,8 +75,8 @@ Once we run `python lib/cli.py`, we are given a menu, with 10 options to choose 
 4. Add a Song ➕🎶
 5. List all Songs 📄
 6. Remove a Song ➖🎶
-7. Find an Artist by ID 🔍
-8. Find a Song by ID 🔍
+7. Find an Artist by name 🔍
+8. Find a Song by title 🔍
 
 Enter 0 to Exit 🚀
 ```
@@ -99,8 +99,8 @@ Artist Name (Or enter 0 to go back): Michael Jackson
 4. Add a Song ➕🎶
 5. List all Songs 📄
 6. Remove a Song ➖🎶
-7. Find an Artist by ID 🔍
-8. Find a Song by ID 🔍
+7. Find an Artist by name 🔍
+8. Find a Song by title 🔍
 
 Enter 0 to Exit 🚀
 ```
@@ -121,8 +121,8 @@ Option 2 will list all of the created artists for the user. However, remember th
 4. Add a Song ➕🎶
 5. List all Songs 📄
 6. Remove a Song ➖🎶
-7. Find an Artist by ID 🔍
-8. Find a Song by ID 🔍
+7. Find an Artist by name 🔍
+8. Find a Song by title 🔍
 
 Enter 0 to Exit 🚀
 >>>
@@ -140,8 +140,8 @@ Option 4 will allow the user to remove one of their submitted Artists. For conve
 4. Add a Song ➕🎶
 5. List all Songs 📄
 6. Remove a Song ➖🎶
-7. Find an Artist by ID 🔍
-8. Find a Song by ID 🔍
+7. Find an Artist by name 🔍
+8. Find a Song by title 🔍
 Enter 0 to Exit 🚀
 >>> 3
 ---------❌Removing Artist❌---------
@@ -171,8 +171,8 @@ Song Title:Billy Jean, Assigned Artist: Michael Jackson
 4. Add a Song ➕🎶
 5. List all Songs 📄
 6. Remove a Song ➖🎶
-7. Find an Artist by ID 🔍
-8. Find a Song by ID 🔍
+7. Find an Artist by name 🔍
+8. Find a Song by title 🔍
 Enter 0 to Exit 🚀
 >>>
 ```
@@ -194,8 +194,8 @@ Option 5 will list all of the available songs. Similar to the songs, remember th
 4. Add a Song ➕🎶
 5. List all Songs 📄
 6. Remove a Song ➖🎶
-7. Find an Artist by ID 🔍
-8. Find a Song by ID 🔍
+7. Find an Artist by name 🔍
+8. Find a Song by title 🔍
 Enter 0 to Exit 🚀
 >>>
 ```
@@ -218,15 +218,15 @@ Done. ❌Billy Jean❌ has now been removed.
 4. Add a Song ➕🎶
 5. List all Songs 📄
 6. Remove a Song ➖🎶
-7. Find an Artist by ID 🔍
-8. Find a Song by ID 🔍
+7. Find an Artist by name 🔍
+8. Find a Song by title 🔍
 Enter 0 to Exit 🚀
 >>>
 ```
 
-```7. Find an Artist by ID 🔍```
+```7. Find an Artist by name 🔍```
 
-Option 7 will find a specific artist you are looking for. Once the ID is provided, the Artist's full name will be provided. Along with this, the command is meant to also be an avenue for the user to update the Artist. If the user needs to correct a typo, they will be prompted to enter the Artist name again for updating.
+Option 7 will find a specific artist you are looking for. Once the name is provided, the Artist's full name will be provided. Along with this, the command is meant to also be an avenue for the user to update the Artist. If the user needs to correct a typo, they will be prompted to enter the Artist name again for updating.
 
 ```
 >>> 7
@@ -237,11 +237,11 @@ Option 7 will find a specific artist you are looking for. Once the ID is provide
 4. Add a Song ➕🎶
 5. List all Songs 📄
 6. Remove a Song ➖🎶
-7. Find an Artist by ID 🔍
-8. Find a Song by ID 🔍
+7. Find an Artist by name 🔍
+8. Find a Song by title 🔍
 Enter 0 to Exit 🚀
 >>> 7
-Enter the ID of the artist: 20
+Enter the name of the artist: 20
 ----------🎤Found Artist🎤----------
 Details:
 Artist Name: 🌟Micahall Jackson (ID: 20)🌟
@@ -251,9 +251,9 @@ Enter the updated artist name: Michael Jackson
 >>>
 ```
 
-```8. Find a Song by ID 🔍 ```
+```8. Find a Song by title 🔍 ```
 
-Option 8 will populate the of a song's information such as it's tile, id, and assigned artist (if one is assigned), once it's id is provided! Along with this, once the song information has populated, the user will be givne the option to update the song's title, if so desired.
+Option 8 will populate the of a song's information such as it's tile, id, and assigned artist (if one is assigned), once it's title is provided! Along with this, once the song information has populated, the user will be given the option to update the song's title, if so desired.
 ```
 ----------Please select an option----------
 1. Add an Artist ➕🧑‍🎤
@@ -262,11 +262,11 @@ Option 8 will populate the of a song's information such as it's tile, id, and as
 4. Add a Song ➕🎶
 5. List all Songs 📄
 6. Remove a Song ➖🎶
-7. Find an Artist by ID 🔍
-8. Find a Song by ID 🔍
+7. Find an Artist by name 🔍
+8. Find a Song by title 🔍
 Enter 0 to Exit 🚀
 >>> 8
-Enter the ID of the song: 20
+Enter the title of the song: 20
 ----------🎶Found Song🎶----------
 Details:
 - Title: Smoothhh cRiminal
@@ -289,8 +289,8 @@ Lastly, if the user would like to leave the application, entering 9 will close t
 4. Add a Song ➕🎶
 5. List all Songs 📄
 6. Remove a Song ➖🎶
-7. Find an Artist by ID 🔍
-8. Find a Song by ID 🔍
+7. Find an Artist by name 🔍
+8. Find a Song by title 🔍
 Enter 0 to Exit 🚀
 >>> 0
 Exiting menu.. Goodbye!

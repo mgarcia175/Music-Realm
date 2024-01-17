@@ -50,11 +50,6 @@ class Artist:
                 "Name must be a non-empty string"
             )
 
-
-
-
-
-
     def delete(self):
         #DELETES table ROW
         sql = """
@@ -159,6 +154,3 @@ class Artist:
             Song.instance_from_db(row) for row in rows
         ]
     #Handles the artist's songs
-
-
-
