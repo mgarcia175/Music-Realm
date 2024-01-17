@@ -2,15 +2,15 @@ from __init__ import CURSOR, CONN
 
 class Artist:
 
+    #Dict of objects saved to database
+    all = {}
+
     def __init__(self, name, id=None):
         self.id = id
         self.name = name
 
     def __repr__(self):
         return f"<Artist {self.id}: {self.name}>"
-
-
-
 
     def save(self):
         sql = """
@@ -23,12 +23,33 @@ class Artist:
 
         self.id = CURSOR.lastrowid
 
+        #This adds artist instance to dict
+        type(self).all[self.id] = self
+
+    def update(self):
+        #UPDATES table row
+        sql = """
+            UPDATE artists
+            SET name = ?
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.name, self.id))
+        CONN.commit()
+
+    def delete(self):
+        #DELETES table ROW
+        sql = """
+            DELETE FROM artists
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+
     @classmethod
     def create(cls, name):
         new_artist = cls(name)
         new_artist.save()
         return new_artist
-
 
     @classmethod
     def create_table(cls):
@@ -53,21 +74,14 @@ class Artist:
         CURSOR.execute(sql)
         CONN.commit()
 
-    def update(self):
-        #UPDATES table row
-        sql = """
-            UPDATE artists
-            SET name = ?
-            WHERE id = ?
-        """
-        CURSOR.execute(sql, (self.name, self.id))
-        CONN.commit()
-
-    def delete(self):
-        #DELETES table ROW
-        sql = """
-            DELETE FROM artists
-            WHERE id = ?
-        """
-        CURSOR.execute(sql, (self.id,))
-        CONN.commit()
+    @classmethod
+    def instance_from_db(cls, row):
+        artist = cls.all.get(row[0])
+        if artist:
+            artist.name = row[1]
+            artist.id = row[0]
+        else:
+            artist = cls(row[1], row[0])
+            artist.id = row[0]
+            cls.all[artist.id] = artist
+        return artist
