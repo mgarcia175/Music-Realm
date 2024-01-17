@@ -45,6 +45,9 @@ class Artist:
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
 
+        del type(self).all[self.id]
+        self.id = None
+
     @classmethod
     def create(cls, name):
         new_artist = cls(name)
@@ -97,6 +100,7 @@ class Artist:
 
         return [cls.instance_from_db(row) for row in rows]
     
+    #Might not actually use this method? Maybe searching by name is more user friendly
     @classmethod
     def find_by_id(cls, id):
         sql = """
@@ -105,5 +109,18 @@ class Artist:
             WHERE id = ?
         """
 
+        #.fetchone() will give you the 1 row of the found element
         row = CURSOR.execute(sql, (id,)).fetchone()
         return cls.instance_from_db(row) if row else None
+    #Might not actually use this method? Maybe searching by name is more user friendly   
+
+    @classmethod
+    def find_by_name(cls, name):
+        sql = """
+            SELECT *
+            FROM artists
+            WHERE name = ?
+        """
+        row = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+
