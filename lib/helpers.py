@@ -13,7 +13,7 @@ def add_an_artists():
 
         new_artist = Artist.create(artist_name)
 
-        print(f"Nice! '{new_artist.name}' has been successfully added!")
+        print(f"✅ Nicely done! '{new_artist.name}' has been successfully added! ✅")
     
     except ValueError as ve:
         print(f"Error: {ve}")
@@ -106,7 +106,7 @@ def add_a_song():
         # Creates song with title and slected artist
         Song.create(song_title, selected_artist)
 
-        print(f"✅Nicely done! Song '{song_title}' by {selected_artist.name} added successfully.✅")
+        print(f"✅ Nicely done! Song '{song_title}' by {selected_artist.name} successfully added. ✅")
 
     except Exception as ex:
         print(f"Error: {ex}")
@@ -116,12 +116,13 @@ def list_all_songs():
     try:
         songs = Song.get_all()
 
-        print("List of all songs:")
         for song in songs:
             if song:
                 print(f"🎶{song.title}")
             else:
                 print("Song with missing or deleted artist:")
+        if not songs:
+            print("Oh no! There are currently no existing songs.. 😢")
     except Exception as e:
         print(f"Error listing all songs: {e}")
 
@@ -132,7 +133,7 @@ def remove_a_song():
         print("---------🎹Available Songs🎹---------")
         for song in songs:
             if song:
-                print(f"🎶{song}")
+                print(f"🎶{song.title}")
             else:
                 print("Song with missing or deleted artist")
 

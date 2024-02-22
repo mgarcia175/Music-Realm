@@ -1,7 +1,7 @@
 # Music Realm Creator
 
 ## Description
-Hello! Welcome to my Music Realm Creator. Your very own way to organize all of your music-related things!
+Hello! Welcome to Music Realm Creator. Your very own way to organize all of your music-related things!
 
 From adding your own artist, songs and adding them to your control to your music, just got better!
 
